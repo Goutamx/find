@@ -45,11 +45,11 @@
       --map-marker-stroke: #d97706;
       --radius: 16px;
       --radius-lg: 24px;
-      --bottom-nav-height: 60px;
+      --bottom-nav-height: 64px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-top: env(safe-area-inset-top, 0px);
-      --sheet-collapsed: 100px;
-      --sheet-half: 55vh;
+      --sheet-collapsed: 90px;
+      --sheet-half: 50vh;
       --sheet-full: calc(100vh - var(--bottom-nav-height) - var(--safe-bottom) - var(--safe-top) - 20px);
     }
 
@@ -95,12 +95,6 @@
       -webkit-user-select: none;
       user-select: none;
     }
-
-    /* ═══════ SCROLLBAR STYLING ═══════ */
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
     /* ═══════ APP CONTAINER ═══════ */
     #app {
@@ -199,8 +193,8 @@
     /* ═══════ FLOATING ELEMENTS ═══════ */
     .fab {
       position: absolute;
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--accent);
       color: #fff;
@@ -208,7 +202,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
       box-shadow: 0 4px 12px rgba(79,70,229,0.4);
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
@@ -226,14 +220,17 @@
       pointer-events: none;
     }
 
-    #search-fab { top: 12px; right: 12px; }
+    #search-fab {
+      top: 16px;
+      right: 16px;
+    }
 
     #theme-fab {
-      top: 12px;
-      left: 12px;
-      width: 40px;
-      height: 40px;
-      font-size: 16px;
+      top: 16px;
+      left: 16px;
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
       background: var(--bg-card);
       color: var(--text-heading);
       border: 1px solid var(--border);
@@ -243,25 +240,30 @@
     /* ═══════ ZOOM CONTROLS ═══════ */
     .zoom-controls {
       position: absolute;
-      bottom: 16px;
-      right: 12px;
+      bottom: 20px;
+      right: 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       z-index: 100;
+      transition: bottom 0.3s, opacity 0.3s;
+    }
+
+    .quiz-active .zoom-controls {
+      bottom: 20px;
     }
 
     .zoom-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       background: var(--bg-card);
       color: var(--text-heading);
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -276,16 +278,18 @@
       color: var(--accent);
     }
 
-    .zoom-btn.reset { font-size: 14px; }
+    .zoom-btn.reset {
+      font-size: 16px;
+    }
 
-    /* ═══════ QUIZ FLOATING CARD ═══════ */
+    /* ═══════ QUIZ FLOATING CARD - COMPACT ═══════ */
     #quiz-float {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      padding: 8px 10px;
-      padding-top: calc(8px + var(--safe-top));
+      padding: 10px 12px;
+      padding-top: calc(10px + var(--safe-top));
       z-index: 90;
       pointer-events: none;
       display: none;
@@ -298,7 +302,7 @@
       background: var(--border);
       border-radius: 2px;
       overflow: hidden;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .quiz-timer-fill {
@@ -310,8 +314,8 @@
 
     .quiz-card {
       background: var(--bg-card);
-      border-radius: 12px;
-      padding: 10px 14px;
+      border-radius: 14px;
+      padding: 12px 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       pointer-events: auto;
     }
@@ -320,11 +324,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .quiz-progress {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -334,19 +338,19 @@
     .quiz-score {
       display: flex;
       align-items: center;
-      gap: 4px;
-      font-size: 12px;
+      gap: 6px;
+      font-size: 13px;
       font-weight: 700;
     }
 
-    .quiz-score-value { color: var(--accent); font-size: 14px; }
+    .quiz-score-value { color: var(--accent); font-size: 16px; }
 
     .quiz-question {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-heading);
       text-align: center;
-      line-height: 1.3;
+      line-height: 1.4;
     }
 
     .quiz-question strong { color: var(--accent); font-weight: 800; }
@@ -355,48 +359,51 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 8px;
-      padding-top: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
       border-top: 1px solid var(--border);
     }
 
     .quiz-hint-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
       background: var(--warning-light);
       color: var(--warning);
       border: 1.5px solid var(--warning);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
+      transition: all 0.2s;
     }
 
     .quiz-hint-btn:disabled { opacity: 0.4; }
 
     .quiz-exit-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
       background: var(--danger-light);
       color: var(--danger);
       border: 1.5px solid var(--danger);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
+      transition: all 0.2s;
     }
 
+    /* ═══════ PROGRESS DOTS - COMPACT ═══════ */
     .progress-dots {
       display: flex;
       justify-content: center;
-      gap: 3px;
-      margin-top: 6px;
+      gap: 4px;
+      margin-top: 8px;
       flex-wrap: wrap;
     }
 
     .progress-dot {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--border);
     }
@@ -408,23 +415,25 @@
     /* ═══════ TOAST NOTIFICATIONS ═══════ */
     #toast-container {
       position: fixed;
-      bottom: 90px;
-      left: 12px;
-      right: 12px;
+      bottom: 100px;
+      left: 16px;
+      right: 16px;
       z-index: 500;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       pointer-events: none;
       transition: bottom 0.3s;
     }
 
-    .quiz-active #toast-container { bottom: 24px; }
+    .quiz-active #toast-container {
+      bottom: 30px;
+    }
 
     .toast {
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 13px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 14px;
       font-weight: 600;
       text-align: center;
       animation: toast-in 0.3s ease-out;
@@ -456,7 +465,7 @@
       pointer-events: auto;
     }
 
-    /* ═══════ BOTTOM SHEET - KEY SCROLLING FIX ═══════ */
+    /* ═══════ BOTTOM SHEET ═══════ */
     #bottom-sheet {
       position: fixed;
       left: 0;
@@ -466,10 +475,11 @@
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       box-shadow: var(--shadow-lg);
       z-index: 150;
+      max-height: var(--sheet-full);
       display: flex;
       flex-direction: column;
       will-change: transform;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s, height 0.3s;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
     }
 
     #bottom-sheet.no-transition {
@@ -477,28 +487,25 @@
     }
 
     #bottom-sheet.collapsed {
-      height: var(--sheet-collapsed);
-      transform: translateY(0);
+      transform: translateY(calc(100% - var(--sheet-collapsed)));
     }
 
     #bottom-sheet.half {
-      height: var(--sheet-half);
-      transform: translateY(0);
+      transform: translateY(calc(100% - var(--sheet-half)));
     }
 
     #bottom-sheet.expanded {
-      height: var(--sheet-full);
       transform: translateY(0);
     }
 
     #bottom-sheet.hidden-sheet {
-      height: 0;
+      transform: translateY(100%);
       opacity: 0;
       pointer-events: none;
     }
 
     .sheet-drag-area {
-      padding: 10px 16px 6px;
+      padding: 14px 16px 8px;
       cursor: grab;
       touch-action: none;
       flex-shrink: 0;
@@ -507,81 +514,74 @@
       align-items: center;
     }
 
-    .sheet-drag-area:active { cursor: grabbing; }
+    .sheet-drag-area:active {
+      cursor: grabbing;
+    }
 
     .sheet-handle {
-      width: 40px;
-      height: 4px;
+      width: 48px;
+      height: 5px;
       background: var(--border);
-      border-radius: 2px;
-      margin-bottom: 4px;
+      border-radius: 3px;
+      margin-bottom: 6px;
     }
 
     .sheet-drag-hint {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-muted);
       font-weight: 500;
     }
 
-    /* ═══════ SHEET CONTENT - SCROLLABLE ═══════ */
-    .sheet-content-wrapper {
-      flex: 1;
-      min-height: 0; /* Critical for flexbox scrolling */
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
     .sheet-header {
-      padding: 8px 16px 10px;
+      padding: 0 20px 14px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
 
     .sheet-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text-heading);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .sheet-subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .sheet-scroll {
+    .sheet-content {
       flex: 1;
-      min-height: 0;
       overflow-y: auto;
-      overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
-      padding: 12px 16px 20px;
+    }
+
+    .sheet-body {
+      padding: 14px 18px;
     }
 
     /* ═══════ INFO TABS ═══════ */
     .info-tabs {
       display: flex;
-      gap: 3px;
-      padding: 3px;
+      gap: 4px;
+      padding: 4px;
       background: var(--bg-card-alt);
-      border-radius: 10px;
-      margin-bottom: 12px;
-      flex-shrink: 0;
+      border-radius: 12px;
+      margin-bottom: 14px;
     }
 
     .info-tab {
       flex: 1;
-      padding: 8px 4px;
+      padding: 10px 6px;
       border: none;
       background: transparent;
-      border-radius: 8px;
-      font-size: 11px;
+      border-radius: 10px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
@@ -590,21 +590,21 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
     }
 
     .info-tab.active {
       background: var(--bg-card);
       color: var(--accent);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .info-tab-icon { font-size: 14px; }
+    .info-tab-icon { font-size: 16px; }
 
     /* ═══════ INFO ROWS ═══════ */
     .info-grid {
       display: grid;
-      gap: 8px;
+      gap: 10px;
     }
 
     .info-item {
@@ -616,10 +616,13 @@
       border-radius: 10px;
     }
 
-    .info-icon { font-size: 18px; flex-shrink: 0; }
+    .info-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
 
     .info-label {
-      font-size: 9px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
@@ -628,7 +631,7 @@
     }
 
     .info-value {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-heading);
     }
@@ -637,9 +640,9 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 16px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -649,55 +652,57 @@
     .badge-ut { background: var(--warning-light); color: var(--warning); }
 
     .badge-zone {
-      padding: 2px 6px;
-      border-radius: 10px;
-      font-size: 9px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 10px;
     }
 
     /* ═══════ FUN FACT ═══════ */
     .fun-fact {
       background: linear-gradient(135deg, var(--accent-light), var(--warning-light));
       border-radius: 10px;
-      padding: 10px;
-      margin-top: 12px;
+      padding: 12px;
+      margin-top: 14px;
     }
 
     .fun-fact-title {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--accent);
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .fun-fact-text {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-heading);
       line-height: 1.4;
     }
 
     /* ═══════ NEIGHBOR CHIPS ═══════ */
-    .neighbors { margin-top: 12px; }
+    .neighbors {
+      margin-top: 14px;
+    }
 
     .neighbors-title {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       text-transform: uppercase;
     }
 
     .neighbors-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
     }
 
     .neighbor-chip {
-      padding: 5px 10px;
+      padding: 6px 12px;
       background: var(--bg-card-alt);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      font-size: 11px;
+      border-radius: 16px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-heading);
       cursor: pointer;
@@ -725,7 +730,9 @@
       transition: transform 0.3s;
     }
 
-    #bottom-nav.hidden-nav { transform: translateY(100%); }
+    #bottom-nav.hidden-nav {
+      transform: translateY(100%);
+    }
 
     .nav-item {
       flex: 1;
@@ -733,12 +740,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
-      padding: 6px;
+      gap: 3px;
+      padding: 8px;
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
@@ -746,14 +753,18 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .nav-item.active { color: var(--accent); }
+    .nav-item.active {
+      color: var(--accent);
+    }
 
     .nav-icon {
-      font-size: 20px;
+      font-size: 22px;
       transition: transform 0.2s;
     }
 
-    .nav-item.active .nav-icon { transform: scale(1.1); }
+    .nav-item.active .nav-icon {
+      transform: scale(1.1);
+    }
 
     /* ═══════ SEARCH OVERLAY ═══════ */
     #search-overlay {
@@ -771,22 +782,21 @@
     .search-header {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      gap: 10px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--border);
       background: var(--bg-card);
-      flex-shrink: 0;
     }
 
     .search-back {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       border-radius: 50%;
       color: var(--text-heading);
@@ -796,11 +806,11 @@
 
     .search-input {
       flex: 1;
-      padding: 10px 12px;
+      padding: 10px 14px;
       background: var(--bg-card-alt);
       border: 2px solid var(--border);
       border-radius: 10px;
-      font-size: 15px;
+      font-size: 16px;
       font-family: inherit;
       color: var(--text-heading);
       outline: none;
@@ -818,8 +828,8 @@
     .search-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
+      gap: 12px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
     }
@@ -838,52 +848,54 @@
 
     .search-name {
       flex: 1;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-heading);
     }
 
     .search-meta {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
     /* ═══════ QUIZ SETUP PANEL ═══════ */
-    .panel-section { padding: 0; }
+    .panel-section {
+      padding: 18px;
+    }
 
     .panel-title {
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    .panel-emoji { font-size: 36px; margin-bottom: 4px; }
+    .panel-emoji { font-size: 40px; margin-bottom: 6px; }
 
     .panel-heading {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--text-heading);
     }
 
     .section-label {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .difficulty-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .diff-btn {
-      padding: 12px 4px;
+      padding: 14px 6px;
       background: var(--bg-card-alt);
       border: 2px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: center;
       cursor: pointer;
       font-family: inherit;
@@ -897,23 +909,23 @@
 
     .diff-btn:active { transform: scale(0.96); }
 
-    .diff-icon { font-size: 22px; margin-bottom: 3px; }
-    .diff-name { font-size: 12px; font-weight: 700; color: var(--text-heading); }
-    .diff-desc { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+    .diff-icon { font-size: 24px; margin-bottom: 4px; }
+    .diff-name { font-size: 13px; font-weight: 700; color: var(--text-heading); }
+    .diff-desc { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
     .count-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .count-btn {
-      padding: 10px;
+      padding: 12px;
       background: var(--bg-card-alt);
       border: 2px solid var(--border);
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 10px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text-heading);
       cursor: pointer;
@@ -929,46 +941,44 @@
 
     .start-btn {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: var(--accent);
       color: #fff;
       border: none;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+      transition: all 0.2s;
     }
 
-    .start-btn:active { transform: scale(0.98); }
-
-    /* ═══════ QUIZ RESULTS - SCROLLABLE ═══════ */
-    .results-scroll {
-      height: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+    .start-btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 8px rgba(79,70,229,0.2);
     }
 
+    /* ═══════ QUIZ RESULTS ═══════ */
     .results-header {
       text-align: center;
-      padding: 12px 0;
+      padding: 16px;
     }
 
-    .results-emoji { font-size: 48px; margin-bottom: 8px; }
-    .results-title { font-size: 20px; font-weight: 800; color: var(--text-heading); }
-    .results-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .results-emoji { font-size: 56px; margin-bottom: 10px; }
+    .results-title { font-size: 22px; font-weight: 800; color: var(--text-heading); }
+    .results-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
 
     .score-circle {
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       border: 5px solid var(--border);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 12px auto;
+      margin: 16px auto;
       position: relative;
     }
 
@@ -982,71 +992,76 @@
       border-right-color: var(--accent);
     }
 
-    .score-value { font-size: 28px; font-weight: 800; color: var(--accent); }
-    .score-total { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .score-value { font-size: 32px; font-weight: 800; color: var(--accent); }
+    .score-total { font-size: 13px; color: var(--text-muted); font-weight: 600; }
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 8px;
+      padding: 0 16px;
+      margin-bottom: 16px;
     }
 
     .stat-box {
       background: var(--bg-card-alt);
-      border-radius: 8px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 12px;
       text-align: center;
     }
 
-    .stat-value { font-size: 16px; font-weight: 800; color: var(--text-heading); }
-    .stat-label { font-size: 9px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-top: 1px; }
+    .stat-value { font-size: 18px; font-weight: 800; color: var(--text-heading); }
+    .stat-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-top: 2px; }
 
     .results-list {
-      margin-bottom: 12px;
+      padding: 0 16px 16px;
+      max-height: 180px;
+      overflow-y: auto;
     }
 
     .result-item {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 0;
+      gap: 8px;
+      padding: 8px 0;
       border-bottom: 1px solid var(--border);
     }
 
     .result-num {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--bg-card-alt);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .result-name { flex: 1; font-weight: 600; color: var(--text-heading); font-size: 12px; }
-    .result-time { font-size: 10px; color: var(--text-muted); }
-    .result-icon { font-size: 14px; }
+    .result-name { flex: 1; font-weight: 600; color: var(--text-heading); font-size: 13px; }
+    .result-time { font-size: 11px; color: var(--text-muted); }
+    .result-icon { font-size: 16px; }
 
     .results-actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
+      gap: 8px;
+      padding: 0 16px 16px;
     }
 
     .action-btn {
-      padding: 10px;
+      padding: 12px;
       border-radius: 10px;
       border: 2px solid var(--border);
       background: var(--bg-card-alt);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text-heading);
       cursor: pointer;
       font-family: inherit;
+      transition: all 0.2s;
     }
 
     .action-btn:active { transform: scale(0.96); }
@@ -1058,38 +1073,32 @@
       grid-column: span 2;
     }
 
-    /* ═══════ STATS PANEL - SCROLLABLE ═══════ */
-    .stats-scroll {
-      height: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
+    /* ═══════ STATS PANEL ═══════ */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
     .stats-card {
       background: var(--bg-card-alt);
-      border-radius: 10px;
-      padding: 12px;
+      border-radius: 12px;
+      padding: 14px;
       text-align: center;
     }
 
-    .stats-card-value { font-size: 22px; font-weight: 800; color: var(--text-heading); }
-    .stats-card-label { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+    .stats-card-value { font-size: 24px; font-weight: 800; color: var(--text-heading); }
+    .stats-card-label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
 
-    .mastery-section { margin-bottom: 16px; }
+    .mastery-section { margin-bottom: 20px; }
 
     .mastery-bar {
       height: 8px;
       background: var(--bg-card-alt);
       border-radius: 4px;
       overflow: hidden;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .mastery-fill {
@@ -1102,18 +1111,18 @@
     .mastery-text {
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
     .achievement-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px;
+      gap: 12px;
+      padding: 12px;
       background: var(--bg-card-alt);
       border-radius: 10px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       border: 2px solid transparent;
     }
 
@@ -1124,40 +1133,40 @@
 
     .achievement-item.locked { opacity: 0.5; }
 
-    .achievement-icon { font-size: 24px; }
-    .achievement-name { font-size: 12px; font-weight: 700; color: var(--text-heading); }
-    .achievement-desc { font-size: 10px; color: var(--text-muted); }
-    .achievement-check { color: var(--warning); font-weight: 700; font-size: 12px; }
+    .achievement-icon { font-size: 28px; }
+    .achievement-name { font-size: 13px; font-weight: 700; color: var(--text-heading); }
+    .achievement-desc { font-size: 11px; color: var(--text-muted); }
+    .achievement-check { color: var(--warning); font-weight: 700; }
 
     .reset-btn {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: var(--danger-light);
       color: var(--danger);
       border: 2px solid var(--danger);
       border-radius: 10px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      margin-top: 12px;
+      margin-top: 16px;
     }
 
     /* ═══════ PLACEHOLDER ═══════ */
     .placeholder {
       text-align: center;
-      padding: 20px 12px;
+      padding: 30px 18px;
     }
 
-    .placeholder-emoji { font-size: 40px; margin-bottom: 8px; }
-    .placeholder-title { font-size: 15px; font-weight: 700; color: var(--text-heading); }
-    .placeholder-text { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .placeholder-emoji { font-size: 48px; margin-bottom: 10px; }
+    .placeholder-title { font-size: 16px; font-weight: 700; color: var(--text-heading); }
+    .placeholder-text { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
     .badge-row {
       display: flex;
       justify-content: center;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 14px;
     }
 
     /* ═══════ CONFETTI ═══════ */
@@ -1178,11 +1187,11 @@
     /* ═══════ QUICK TIP ═══════ */
     #quick-tip {
       position: fixed;
-      padding: 6px 12px;
+      padding: 8px 14px;
       background: var(--text-heading);
       color: var(--bg-card);
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       z-index: 250;
       pointer-events: none;
@@ -1206,7 +1215,7 @@
     <section id="map-section">
       <div id="map-container">
         
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--********* Copyright (c) 2024 Pareto Softare, LLC DBA Simplemaps.com ***************************************
 ************* Free for Commercial Use, full terms at  https://simplemaps.com/resources/svg-license ************
 ************* Attribution is appreciated! https://simplemaps.com *******************************************-->
@@ -1709,15 +1718,18 @@
         
       </div>
 
+      <!-- Floating buttons -->
       <button id="search-fab" class="fab" onclick="App.openSearch()">🔍</button>
       <button id="theme-fab" class="fab" onclick="App.toggleDark()">🌙</button>
 
-      <div class="zoom-controls">
-        <button class="zoom-btn" onclick="App.zoomIn()">+</button>
-        <button class="zoom-btn" onclick="App.zoomOut()">−</button>
-        <button class="zoom-btn reset" onclick="App.resetZoom()">↺</button>
+      <!-- Zoom Controls -->
+      <div class="zoom-controls" id="zoom-controls">
+        <button class="zoom-btn" onclick="App.zoomIn()" title="Zoom In">+</button>
+        <button class="zoom-btn" onclick="App.zoomOut()" title="Zoom Out">−</button>
+        <button class="zoom-btn reset" onclick="App.resetZoom()" title="Reset">↺</button>
       </div>
 
+      <!-- Quiz floating card -->
       <div id="quiz-float">
         <div class="quiz-timer-bar">
           <div id="timer-fill" class="quiz-timer-fill"></div>
@@ -1725,7 +1737,9 @@
         <div class="quiz-card">
           <div class="quiz-card-header">
             <div class="quiz-progress">Q<span id="q-num">1</span>/<span id="q-total">10</span></div>
-            <div class="quiz-score">Score: <span id="q-score" class="quiz-score-value">0</span></div>
+            <div class="quiz-score">
+              Score: <span id="q-score" class="quiz-score-value">0</span>
+            </div>
           </div>
           <p id="q-text" class="quiz-question"></p>
           <div class="progress-dots" id="progress-dots"></div>
@@ -1736,43 +1750,44 @@
         </div>
       </div>
 
+      <!-- Toast container -->
       <div id="toast-container"></div>
     </section>
 
+    <!-- BOTTOM SHEET OVERLAY -->
     <div id="bottom-sheet-overlay" onclick="App.collapseSheet()"></div>
 
-    <!-- BOTTOM SHEET - RESTRUCTURED FOR SCROLLING -->
+    <!-- BOTTOM SHEET -->
     <div id="bottom-sheet" class="collapsed">
       <div class="sheet-drag-area" id="sheet-drag-area">
         <div class="sheet-handle"></div>
         <div class="sheet-drag-hint" id="sheet-hint">Swipe up to explore</div>
       </div>
       
-      <div class="sheet-content-wrapper">
-        
-        <!-- LEARN CONTENT -->
-        <div id="learn-content">
-          <div id="learn-placeholder">
-            <div class="placeholder">
-              <div class="placeholder-emoji">🗺️</div>
-              <div class="placeholder-title">Explore India</div>
-              <div class="placeholder-text">Tap any state or UT on the map</div>
-              <div class="badge-row">
-                <span class="badge badge-state">28 States</span>
-                <span class="badge badge-ut">8 UTs</span>
-              </div>
+      <!-- Learn content -->
+      <div id="learn-content">
+        <div id="learn-placeholder">
+          <div class="placeholder">
+            <div class="placeholder-emoji">🗺️</div>
+            <div class="placeholder-title">Explore India</div>
+            <div class="placeholder-text">Tap any state or union territory on the map</div>
+            <div class="badge-row">
+              <span class="badge badge-state">28 States</span>
+              <span class="badge badge-ut">8 UTs</span>
             </div>
           </div>
-          
-          <div id="state-info" style="display:none;">
-            <div class="sheet-header">
-              <div class="sheet-title" id="info-name"></div>
-              <div class="sheet-subtitle">
-                <span id="info-badge"></span>
-                <span id="info-zone"></span>
-              </div>
+        </div>
+        
+        <div id="state-info" style="display:none;">
+          <div class="sheet-header">
+            <div class="sheet-title" id="info-name"></div>
+            <div class="sheet-subtitle">
+              <span id="info-badge"></span>
+              <span id="info-zone"></span>
             </div>
-            <div class="sheet-scroll" id="learn-scroll">
+          </div>
+          <div class="sheet-content">
+            <div class="sheet-body">
               <div class="info-tabs" id="info-tabs">
                 <button class="info-tab active" data-tab="basic">
                   <span class="info-tab-icon">📋</span>
@@ -1787,96 +1802,95 @@
                   <span>More</span>
                 </button>
               </div>
+              
               <div id="tab-basic" class="info-grid"></div>
               <div id="tab-nature" class="info-grid" style="display:none;"></div>
               <div id="tab-more" style="display:none;"></div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- QUIZ CONTENT -->
-        <div id="quiz-content" style="display:none;">
-          <div id="quiz-setup">
-            <div class="sheet-scroll">
-              <div class="panel-section">
-                <div class="panel-title">
-                  <div class="panel-emoji">🧠</div>
-                  <div class="panel-heading">Test Your Knowledge</div>
-                </div>
-                
-                <div class="section-label">Difficulty</div>
-                <div class="difficulty-grid" id="diff-grid">
-                  <button class="diff-btn" data-diff="easy">
-                    <div class="diff-icon">🌱</div>
-                    <div class="diff-name">Easy</div>
-                    <div class="diff-desc">15s · Hints</div>
-                  </button>
-                  <button class="diff-btn selected" data-diff="medium">
-                    <div class="diff-icon">🎯</div>
-                    <div class="diff-name">Medium</div>
-                    <div class="diff-desc">10s · Mixed</div>
-                  </button>
-                  <button class="diff-btn" data-diff="hard">
-                    <div class="diff-icon">🔥</div>
-                    <div class="diff-name">Hard</div>
-                    <div class="diff-desc">7s · All types</div>
-                  </button>
-                </div>
-
-                <div class="section-label">Questions</div>
-                <div class="count-grid" id="count-grid">
-                  <button class="count-btn" data-count="5">5</button>
-                  <button class="count-btn selected" data-count="10">10</button>
-                  <button class="count-btn" data-count="15">15</button>
-                  <button class="count-btn" data-count="36">All</button>
-                </div>
-
-                <button class="start-btn" onclick="App.startQuiz()">🚀 Start Quiz</button>
-              </div>
+      <!-- Quiz content -->
+      <div id="quiz-content" style="display:none;">
+        <div id="quiz-setup">
+          <div class="panel-section">
+            <div class="panel-title">
+              <div class="panel-emoji">🧠</div>
+              <div class="panel-heading">Test Your Knowledge</div>
             </div>
-          </div>
-
-          <div id="quiz-results" style="display:none;">
-            <div class="sheet-scroll results-scroll">
-              <div class="results-header">
-                <div id="res-emoji" class="results-emoji">🏆</div>
-                <div id="res-title" class="results-title">Perfect!</div>
-                <div id="res-subtitle" class="results-subtitle">Flawless victory!</div>
-              </div>
-              <div class="score-circle">
-                <div id="res-score" class="score-value">10</div>
-                <div id="res-total" class="score-total">/10</div>
-              </div>
-              <div class="stats-row">
-                <div class="stat-box">
-                  <div id="res-time" class="stat-value">2.5s</div>
-                  <div class="stat-label">Avg Time</div>
-                </div>
-                <div class="stat-box">
-                  <div id="res-streak" class="stat-value">5</div>
-                  <div class="stat-label">Best Streak</div>
-                </div>
-                <div class="stat-box">
-                  <div id="res-accuracy" class="stat-value">100%</div>
-                  <div class="stat-label">Accuracy</div>
-                </div>
-              </div>
-              <div id="results-list" class="results-list"></div>
-              <div class="results-actions">
-                <button class="action-btn" onclick="App.switchMode('learn')">📖 Learn</button>
-                <button class="action-btn" onclick="App.switchMode('stats')">🏆 Stats</button>
-                <button class="action-btn primary" onclick="App.restartQuiz()">🔄 Play Again</button>
-              </div>
+            
+            <div class="section-label">Difficulty</div>
+            <div class="difficulty-grid" id="diff-grid">
+              <button class="diff-btn" data-diff="easy">
+                <div class="diff-icon">🌱</div>
+                <div class="diff-name">Easy</div>
+                <div class="diff-desc">15s · Hints</div>
+              </button>
+              <button class="diff-btn selected" data-diff="medium">
+                <div class="diff-icon">🎯</div>
+                <div class="diff-name">Medium</div>
+                <div class="diff-desc">10s · Mixed</div>
+              </button>
+              <button class="diff-btn" data-diff="hard">
+                <div class="diff-icon">🔥</div>
+                <div class="diff-name">Hard</div>
+                <div class="diff-desc">7s · All types</div>
+              </button>
             </div>
+
+            <div class="section-label">Questions</div>
+            <div class="count-grid" id="count-grid">
+              <button class="count-btn" data-count="5">5</button>
+              <button class="count-btn selected" data-count="10">10</button>
+              <button class="count-btn" data-count="15">15</button>
+              <button class="count-btn" data-count="36">All</button>
+            </div>
+
+            <button class="start-btn" onclick="App.startQuiz()">🚀 Start Quiz</button>
           </div>
         </div>
 
-        <!-- STATS CONTENT -->
-        <div id="stats-content" style="display:none;">
-          <div class="sheet-header">
-            <div class="sheet-title">🏆 Your Progress</div>
+        <div id="quiz-results" style="display:none;">
+          <div class="results-header">
+            <div id="res-emoji" class="results-emoji">🏆</div>
+            <div id="res-title" class="results-title">Perfect!</div>
+            <div id="res-subtitle" class="results-subtitle">Flawless victory!</div>
           </div>
-          <div class="sheet-scroll stats-scroll">
+          <div class="score-circle">
+            <div id="res-score" class="score-value">10</div>
+            <div id="res-total" class="score-total">/10</div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-box">
+              <div id="res-time" class="stat-value">2.5s</div>
+              <div class="stat-label">Avg Time</div>
+            </div>
+            <div class="stat-box">
+              <div id="res-streak" class="stat-value">5</div>
+              <div class="stat-label">Best Streak</div>
+            </div>
+            <div class="stat-box">
+              <div id="res-accuracy" class="stat-value">100%</div>
+              <div class="stat-label">Accuracy</div>
+            </div>
+          </div>
+          <div id="results-list" class="results-list"></div>
+          <div class="results-actions">
+            <button class="action-btn" onclick="App.switchMode('learn')">📖 Learn</button>
+            <button class="action-btn" onclick="App.switchMode('stats')">🏆 Stats</button>
+            <button class="action-btn primary" onclick="App.restartQuiz()">🔄 Play Again</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats content -->
+      <div id="stats-content" style="display:none;">
+        <div class="sheet-header">
+          <div class="sheet-title">🏆 Your Progress</div>
+        </div>
+        <div class="sheet-content">
+          <div class="sheet-body">
             <div class="stats-grid">
               <div class="stats-card">
                 <div id="stat-quizzes" class="stats-card-value">0</div>
@@ -1936,33 +1950,37 @@
     <div id="search-overlay">
       <div class="search-header">
         <button class="search-back" onclick="App.closeSearch()">←</button>
-        <input type="text" id="search-input" class="search-input" placeholder="Search states, capitals..." autocomplete="off">
+        <input type="text" id="search-input" class="search-input" placeholder="Search states, capitals, rivers..." autocomplete="off">
       </div>
       <div id="search-results" class="search-results"></div>
     </div>
 
+    <!-- QUICK TIP -->
     <div id="quick-tip"></div>
   </div>
 
   <script>
     const App = (() => {
+      // ═══════ CONFIG ═══════
       const CFG = {
         DARK_KEY: 'india-geo-dark',
         STATS_KEY: 'india-geo-stats',
         FEEDBACK_MS: 1200,
         LONG_PRESS_MS: 500,
         MARKER_HIT_EXTRA: 25,
+        SWIPE_THRESHOLD: 50,
         VELOCITY_THRESHOLD: 0.3,
         ZOOM_STEP: 0.4,
         ZOOM_MIN: 0.5,
         ZOOM_MAX: 4,
         DIFFICULTIES: {
           easy: { timer: 15, hints: 3, types: ['name'] },
-          medium: { timer: 10, hints: 1, types: ['name', 'capital', 'neighbor'] },
-          hard: { timer: 7, hints: 0, types: ['name', 'capital', 'neighbor', 'river', 'landmark'] }
+          medium: { timer: 10, hints: 1, types: ['name', 'capital', 'sea', 'country', 'neighbor'] },
+          hard: { timer: 7, hints: 0, types: ['name', 'capital', 'sea', 'country', 'neighbor', 'river', 'language', 'landmark', 'zone', 'symbol'] }
         }
       };
 
+      // ═══════ STATE DATA ═══════
       const STATES = [
         {id:"andhra_pradesh",name:"Andhra Pradesh",capital:"Amaravati",type:"State",zone:"South",language:"Telugu",area:162968,population:49577103,literacy:67.4,animal:"Blackbuck",bird:"Rose-ringed Parakeet",flower:"Water Lily",river:"Godavari, Krishna",neighbors:["telangana","karnataka","tamil_nadu","odisha","chhattisgarh"],landmarks:["Tirumala Temple","Araku Valley"],funFact:"Has the second longest coastline among Indian states."},
         {id:"arunachal_pradesh",name:"Arunachal Pradesh",capital:"Itanagar",type:"State",zone:"Northeast",language:"English",area:83743,population:1383727,literacy:65.4,animal:"Gayal",bird:"Great Hornbill",flower:"Foxtail Orchid",river:"Brahmaputra",neighbors:["assam","nagaland"],landmarks:["Tawang Monastery"],funFact:"First state to see sunrise in India."},
@@ -1970,31 +1988,31 @@
         {id:"bihar",name:"Bihar",capital:"Patna",type:"State",zone:"East",language:"Hindi",area:94163,population:104099452,literacy:61.8,animal:"Gaur",bird:"Indian Roller",flower:"Marigold",river:"Ganga",neighbors:["uttar_pradesh","jharkhand","west_bengal"],landmarks:["Nalanda University"],funFact:"Ancient seat of learning."},
         {id:"chhattisgarh",name:"Chhattisgarh",capital:"Raipur",type:"State",zone:"Central",language:"Hindi",area:135192,population:25545198,literacy:70.3,animal:"Wild Buffalo",bird:"Hill Myna",flower:"Rhynchostylis",river:"Mahanadi",neighbors:["madhya_pradesh","maharashtra","telangana","andhra_pradesh","odisha","jharkhand","uttar_pradesh"],landmarks:["Chitrakote Falls"],funFact:"Rice bowl of India."},
         {id:"goa",name:"Goa",capital:"Panaji",type:"State",zone:"West",language:"Konkani",area:3702,population:1458545,literacy:88.7,animal:"Gaur",bird:"Ruby-throated Bulbul",flower:"Plumeria",river:"Mandovi",neighbors:["maharashtra","karnataka"],landmarks:["Basilica of Bom Jesus"],funFact:"Smallest state by area."},
-        {id:"gujarat",name:"Gujarat",capital:"Gandhinagar",type:"State",zone:"West",language:"Gujarati",area:196024,population:60439692,literacy:78.0,animal:"Asiatic Lion",bird:"Greater Flamingo",flower:"Marigold",river:"Narmada",neighbors:["rajasthan","madhya_pradesh","maharashtra"],landmarks:["Statue of Unity"],funFact:"Only home of Asiatic Lion."},
+        {id:"gujarat",name:"Gujarat",capital:"Gandhinagar",type:"State",zone:"West",language:"Gujarati",area:196024,population:60439692,literacy:78.0,animal:"Asiatic Lion",bird:"Greater Flamingo",flower:"Marigold",river:"Narmada",neighbors:["rajasthan","madhya_pradesh","maharashtra","dadra_and_nagar_haveli_and_daman_and_diu"],landmarks:["Statue of Unity"],funFact:"Only home of Asiatic Lion."},
         {id:"haryana",name:"Haryana",capital:"Chandigarh",type:"State",zone:"North",language:"Hindi",area:44212,population:25351462,literacy:75.6,animal:"Blackbuck",bird:"Black Francolin",flower:"Lotus",river:"Yamuna",neighbors:["punjab","himachal_pradesh","uttarakhand","uttar_pradesh","rajasthan","delhi"],landmarks:["Kurukshetra"],funFact:"Mahabharata war was fought here."},
         {id:"himachal_pradesh",name:"Himachal Pradesh",capital:"Shimla",type:"State",zone:"North",language:"Hindi",area:55673,population:6864602,literacy:82.8,animal:"Snow Leopard",bird:"Western Tragopan",flower:"Pink Rhododendron",river:"Beas",neighbors:["jammu_and_kashmir","ladakh","punjab","haryana","uttarakhand"],landmarks:["Rohtang Pass"],funFact:"Land of Gods with 2000+ temples."},
         {id:"jharkhand",name:"Jharkhand",capital:"Ranchi",type:"State",zone:"East",language:"Hindi",area:79710,population:32988134,literacy:66.4,animal:"Indian Elephant",bird:"Asian Koel",flower:"Palash",river:"Damodar",neighbors:["bihar","west_bengal","odisha","chhattisgarh","uttar_pradesh"],landmarks:["Betla NP"],funFact:"Contains 40% of India's minerals."},
         {id:"karnataka",name:"Karnataka",capital:"Bengaluru",type:"State",zone:"South",language:"Kannada",area:191791,population:61095297,literacy:75.4,animal:"Indian Elephant",bird:"Indian Roller",flower:"Lotus",river:"Kaveri",neighbors:["goa","maharashtra","telangana","andhra_pradesh","tamil_nadu","kerala"],landmarks:["Hampi","Mysore Palace"],funFact:"Silicon Valley of India."},
         {id:"kerala",name:"Kerala",capital:"Thiruvananthapuram",type:"State",zone:"South",language:"Malayalam",area:38863,population:33406061,literacy:94.0,animal:"Indian Elephant",bird:"Great Hornbill",flower:"Golden Shower",river:"Periyar",neighbors:["karnataka","tamil_nadu"],landmarks:["Backwaters","Munnar"],funFact:"Highest literacy rate at 94%."},
         {id:"madhya_pradesh",name:"Madhya Pradesh",capital:"Bhopal",type:"State",zone:"Central",language:"Hindi",area:308252,population:72626809,literacy:69.3,animal:"Swamp Deer",bird:"Paradise Flycatcher",flower:"White Lily",river:"Narmada",neighbors:["rajasthan","uttar_pradesh","chhattisgarh","maharashtra","gujarat"],landmarks:["Khajuraho"],funFact:"Heart of India - largest by area."},
-        {id:"maharashtra",name:"Maharashtra",capital:"Mumbai",type:"State",zone:"West",language:"Marathi",area:307713,population:112374333,literacy:82.3,animal:"Giant Squirrel",bird:"Yellow-footed Pigeon",flower:"Jarul",river:"Godavari",neighbors:["gujarat","madhya_pradesh","chhattisgarh","telangana","karnataka","goa"],landmarks:["Gateway of India"],funFact:"Most populated state."},
+        {id:"maharashtra",name:"Maharashtra",capital:"Mumbai",type:"State",zone:"West",language:"Marathi",area:307713,population:112374333,literacy:82.3,animal:"Giant Squirrel",bird:"Yellow-footed Pigeon",flower:"Jarul",river:"Godavari",neighbors:["gujarat","madhya_pradesh","chhattisgarh","telangana","karnataka","goa","dadra_and_nagar_haveli_and_daman_and_diu"],landmarks:["Gateway of India"],funFact:"Most populated state."},
         {id:"manipur",name:"Manipur",capital:"Imphal",type:"State",zone:"Northeast",language:"Meitei",area:22327,population:2855794,literacy:79.2,animal:"Sangai Deer",bird:"Mrs. Hume's Pheasant",flower:"Siroi Lily",river:"Manipur",neighbors:["nagaland","assam","mizoram"],landmarks:["Loktak Lake"],funFact:"Largest freshwater lake in NE India."},
         {id:"meghalaya",name:"Meghalaya",capital:"Shillong",type:"State",zone:"Northeast",language:"Khasi",area:22429,population:2966889,literacy:74.4,animal:"Clouded Leopard",bird:"Hill Myna",flower:"Lady's Slipper Orchid",river:"Umiam",neighbors:["assam"],landmarks:["Living Root Bridges"],funFact:"Wettest place on Earth."},
         {id:"mizoram",name:"Mizoram",capital:"Aizawl",type:"State",zone:"Northeast",language:"Mizo",area:21081,population:1097206,literacy:91.3,animal:"Serow",bird:"Mrs. Hume's Pheasant",flower:"Red Vanda",river:"Tlawng",neighbors:["assam","manipur","tripura"],landmarks:["Phawngpui Peak"],funFact:"Second highest literacy rate."},
         {id:"nagaland",name:"Nagaland",capital:"Kohima",type:"State",zone:"Northeast",language:"English",area:16579,population:1978502,literacy:79.6,animal:"Gayal",bird:"Blyth's Tragopan",flower:"Rhododendron",river:"Doyang",neighbors:["assam","arunachal_pradesh","manipur"],landmarks:["Hornbill Festival"],funFact:"Land of Festivals."},
-        {id:"odisha",name:"Odisha",capital:"Bhubaneswar",type:"State",zone:"East",language:"Odia",area:155707,population:41974218,literacy:72.9,animal:"Sambar Deer",bird:"Indian Roller",flower:"Ashoka",river:"Mahanadi",neighbors:["west_bengal","jharkhand","chhattisgarh","andhra_pradesh"],landmarks:["Konark Sun Temple"],funFact:"Temple shaped like a chariot."},
+        {id:"odisha",name:"Odisha",capital:"Bhubaneswar",type:"State",zone:"East",language:"Odia",area:155707,population:41974218,literacy:72.9,animal:"Sambar Deer",bird:"Indian Roller",flower:"Ashoka",river:"Mahanadi",neighbors:["west_bengal","jharkhand","chhattisgarh","andhra_pradesh","telangana"],landmarks:["Konark Sun Temple"],funFact:"Temple shaped like a chariot."},
         {id:"punjab",name:"Punjab",capital:"Chandigarh",type:"State",zone:"North",language:"Punjabi",area:50362,population:27743338,literacy:75.8,animal:"Blackbuck",bird:"Northern Goshawk",flower:"Gladiolus",river:"Sutlej",neighbors:["jammu_and_kashmir","himachal_pradesh","haryana","rajasthan"],landmarks:["Golden Temple"],funFact:"Serves 100,000 free meals daily."},
         {id:"rajasthan",name:"Rajasthan",capital:"Jaipur",type:"State",zone:"West",language:"Hindi",area:342239,population:68548437,literacy:66.1,animal:"Chinkara",bird:"Great Indian Bustard",flower:"Rohida",river:"Chambal",neighbors:["punjab","haryana","uttar_pradesh","madhya_pradesh","gujarat"],landmarks:["Jaipur Palace","Thar Desert"],funFact:"Largest state by area."},
         {id:"sikkim",name:"Sikkim",capital:"Gangtok",type:"State",zone:"Northeast",language:"Nepali",area:7096,population:610577,literacy:81.4,animal:"Red Panda",bird:"Blood Pheasant",flower:"Noble Orchid",river:"Teesta",neighbors:["west_bengal"],landmarks:["Kanchenjunga"],funFact:"First fully organic state."},
         {id:"tamil_nadu",name:"Tamil Nadu",capital:"Chennai",type:"State",zone:"South",language:"Tamil",area:130058,population:72147030,literacy:80.1,animal:"Nilgiri Tahr",bird:"Emerald Dove",flower:"Gloriosa Lily",river:"Kaveri",neighbors:["kerala","karnataka","andhra_pradesh","puducherry"],landmarks:["Meenakshi Temple"],funFact:"Oldest classical language."},
         {id:"telangana",name:"Telangana",capital:"Hyderabad",type:"State",zone:"South",language:"Telugu",area:112077,population:35193978,literacy:66.5,animal:"Spotted Deer",bird:"Indian Roller",flower:"Tangedu",river:"Godavari",neighbors:["maharashtra","chhattisgarh","andhra_pradesh","karnataka"],landmarks:["Charminar"],funFact:"Youngest state - formed in 2014."},
         {id:"tripura",name:"Tripura",capital:"Agartala",type:"State",zone:"Northeast",language:"Bengali",area:10486,population:3673917,literacy:87.2,animal:"Phayre's Langur",bird:"Green Imperial Pigeon",flower:"Indian Rose Chestnut",river:"Gomati",neighbors:["assam","mizoram"],landmarks:["Ujjayanta Palace"],funFact:"Third smallest state."},
-        {id:"uttar_pradesh",name:"Uttar Pradesh",capital:"Lucknow",type:"State",zone:"North",language:"Hindi",area:240928,population:199812341,literacy:67.7,animal:"Swamp Deer",bird:"Sarus Crane",flower:"Palash",river:"Ganga",neighbors:["uttarakhand","haryana","rajasthan","madhya_pradesh","chhattisgarh","jharkhand","bihar","delhi"],landmarks:["Taj Mahal"],funFact:"Most populated state."},
+        {id:"uttar_pradesh",name:"Uttar Pradesh",capital:"Lucknow",type:"State",zone:"North",language:"Hindi",area:240928,population:199812341,literacy:67.7,animal:"Swamp Deer",bird:"Sarus Crane",flower:"Palash",river:"Ganga",neighbors:["uttarakhand","himachal_pradesh","haryana","rajasthan","madhya_pradesh","chhattisgarh","jharkhand","bihar","delhi"],landmarks:["Taj Mahal"],funFact:"Most populated state."},
         {id:"uttarakhand",name:"Uttarakhand",capital:"Dehradun",type:"State",zone:"North",language:"Hindi",area:53483,population:10086292,literacy:78.8,animal:"Alpine Musk Deer",bird:"Himalayan Monal",flower:"Brahma Kamal",river:"Ganga",neighbors:["himachal_pradesh","uttar_pradesh","haryana"],landmarks:["Kedarnath"],funFact:"Land of the Gods."},
         {id:"west_bengal",name:"West Bengal",capital:"Kolkata",type:"State",zone:"East",language:"Bengali",area:88752,population:91276115,literacy:76.3,animal:"Fishing Cat",bird:"White-breasted Kingfisher",flower:"Night Jasmine",river:"Ganga",neighbors:["sikkim","bihar","jharkhand","odisha","assam"],landmarks:["Victoria Memorial"],funFact:"Home to Royal Bengal Tiger."},
         {id:"andaman_and_nicobar_islands",name:"Andaman & Nicobar",capital:"Port Blair",type:"Union Territory",zone:"Islands",language:"Hindi",area:8249,population:380581,literacy:86.6,animal:"Dugong",bird:"Andaman Wood Pigeon",flower:"Andaman Padauk",river:"—",neighbors:[],landmarks:["Cellular Jail"],funFact:"Asia's oldest jail."},
         {id:"chandigarh",name:"Chandigarh",capital:"Chandigarh",type:"Union Territory",zone:"North",language:"Hindi",area:114,population:1055450,literacy:86.0,animal:"Indian Grey Mongoose",bird:"Indian Grey Hornbill",flower:"Dhak",river:"—",neighbors:["punjab","haryana"],landmarks:["Rock Garden"],funFact:"Designed by Le Corbusier."},
-        {id:"dadra_and_nagar_haveli_and_daman_and_diu",name:"DNH & DD",capital:"Daman",type:"Union Territory",zone:"West",language:"Gujarati",area:603,population:585764,literacy:76.2,animal:"—",bird:"—",flower:"—",river:"Damanganga",neighbors:["gujarat","maharashtra"],landmarks:["Diu Fort"],funFact:"Portuguese rule until 1961."},
+        {id:"dadra_and_nagar_haveli_and_daman_and_diu",name:"Dadra & Nagar Haveli and Daman & Diu",capital:"Daman",type:"Union Territory",zone:"West",language:"Gujarati",area:603,population:585764,literacy:76.2,animal:"—",bird:"—",flower:"—",river:"Damanganga",neighbors:["gujarat","maharashtra"],landmarks:["Diu Fort"],funFact:"Portuguese rule until 1961."},
         {id:"delhi",name:"Delhi",capital:"New Delhi",type:"Union Territory",zone:"North",language:"Hindi",area:1484,population:16787941,literacy:86.2,animal:"Nilgai",bird:"House Sparrow",flower:"Alfalfa",river:"Yamuna",neighbors:["haryana","uttar_pradesh"],landmarks:["Red Fort","India Gate"],funFact:"Largest metro in Asia."},
         {id:"jammu_and_kashmir",name:"Jammu & Kashmir",capital:"Srinagar",type:"Union Territory",zone:"North",language:"Urdu",area:55538,population:12267032,literacy:67.2,animal:"Hangul",bird:"Black-necked Crane",flower:"Lotus",river:"Jhelum",neighbors:["ladakh","himachal_pradesh","punjab"],landmarks:["Dal Lake"],funFact:"Famous floating houseboats."},
         {id:"ladakh",name:"Ladakh",capital:"Leh",type:"Union Territory",zone:"North",language:"Ladakhi",area:59146,population:274289,literacy:77.2,animal:"Snow Leopard",bird:"Black-necked Crane",flower:"—",river:"Indus",neighbors:["jammu_and_kashmir","himachal_pradesh"],landmarks:["Pangong Lake"],funFact:"Highest motorable pass."},
@@ -2002,37 +2020,78 @@
         {id:"puducherry",name:"Puducherry",capital:"Puducherry",type:"Union Territory",zone:"South",language:"Tamil",area:479,population:1247953,literacy:85.8,animal:"—",bird:"—",flower:"—",river:"—",neighbors:["tamil_nadu"],landmarks:["Auroville"],funFact:"French colony until 1954."}
       ];
 
+      const SEA = {
+        arabian_sea: { q: "Which state touches the <strong>Arabian Sea</strong>?", a: ["gujarat", "maharashtra", "goa", "karnataka", "kerala", "lakshadweep"] },
+        bay_of_bengal: { q: "Which state touches the <strong>Bay of Bengal</strong>?", a: ["west_bengal", "odisha", "andhra_pradesh", "tamil_nadu", "puducherry", "andaman_and_nicobar_islands"] }
+      };
+
+      const COUNTRY = {
+        china: { q: "Which state borders <strong>China</strong>?", a: ["ladakh", "himachal_pradesh", "uttarakhand", "sikkim", "arunachal_pradesh"] },
+        pakistan: { q: "Which state borders <strong>Pakistan</strong>?", a: ["gujarat", "rajasthan", "punjab", "jammu_and_kashmir", "ladakh"] },
+        nepal: { q: "Which state borders <strong>Nepal</strong>?", a: ["uttarakhand", "uttar_pradesh", "bihar", "west_bengal", "sikkim"] },
+        bangladesh: { q: "Which state borders <strong>Bangladesh</strong>?", a: ["west_bengal", "assam", "meghalaya", "tripura", "mizoram"] }
+      };
+
       const ZONE_COLORS = { North: '#3b82f6', South: '#10b981', East: '#f59e0b', West: '#8b5cf6', Central: '#ef4444', Northeast: '#ec4899', Islands: '#06b6d4' };
 
+      // Aliases
       const ALIAS = {};
-      [["andhra_pradesh",["IN-AP","AP"]],["arunachal_pradesh",["IN-AR","AR"]],["assam",["IN-AS","AS"]],["bihar",["IN-BR","BR"]],["chhattisgarh",["IN-CT","CT"]],["goa",["IN-GA","GA"]],["gujarat",["IN-GJ","GJ"]],["haryana",["IN-HR","HR"]],["himachal_pradesh",["IN-HP","HP"]],["jharkhand",["IN-JH","JH"]],["karnataka",["IN-KA","KA"]],["kerala",["IN-KL","KL"]],["madhya_pradesh",["IN-MP","MP"]],["maharashtra",["IN-MH","MH"]],["manipur",["IN-MN","MN"]],["meghalaya",["IN-ML","ML"]],["mizoram",["IN-MZ","MZ"]],["nagaland",["IN-NL","NL"]],["odisha",["IN-OR","OR","orissa"]],["punjab",["IN-PB","PB"]],["rajasthan",["IN-RJ","RJ"]],["sikkim",["IN-SK","SK"]],["tamil_nadu",["IN-TN","TN"]],["telangana",["IN-TG","TG"]],["tripura",["IN-TR","TR"]],["uttar_pradesh",["IN-UP","UP"]],["uttarakhand",["IN-UT","UT","IN-UK","UK"]],["west_bengal",["IN-WB","WB"]],["andaman_and_nicobar_islands",["IN-AN","AN"]],["chandigarh",["IN-CH","CH"]],["dadra_and_nagar_haveli_and_daman_and_diu",["IN-DH","DH","IN-DN","DN","dadra","daman"]],["delhi",["IN-DL","DL"]],["jammu_and_kashmir",["IN-JK","JK"]],["ladakh",["IN-LA","LA"]],["lakshadweep",["IN-LD","LD"]],["puducherry",["IN-PY","PY"]]].forEach(([id,a])=>{ALIAS[id]=id;a.forEach(x=>{ALIAS[x]=id;ALIAS[x.toLowerCase()]=id;});});
+      const aliasData = [
+        ["andhra_pradesh", ["IN-AP", "AP"]], ["arunachal_pradesh", ["IN-AR", "AR"]], ["assam", ["IN-AS", "AS"]],
+        ["bihar", ["IN-BR", "BR"]], ["chhattisgarh", ["IN-CT", "CT"]], ["goa", ["IN-GA", "GA"]],
+        ["gujarat", ["IN-GJ", "GJ"]], ["haryana", ["IN-HR", "HR"]], ["himachal_pradesh", ["IN-HP", "HP"]],
+        ["jharkhand", ["IN-JH", "JH"]], ["karnataka", ["IN-KA", "KA"]], ["kerala", ["IN-KL", "KL"]],
+        ["madhya_pradesh", ["IN-MP", "MP"]], ["maharashtra", ["IN-MH", "MH"]], ["manipur", ["IN-MN", "MN"]],
+        ["meghalaya", ["IN-ML", "ML"]], ["mizoram", ["IN-MZ", "MZ"]], ["nagaland", ["IN-NL", "NL"]],
+        ["odisha", ["IN-OR", "OR", "IN-OD", "OD", "orissa"]], ["punjab", ["IN-PB", "PB"]],
+        ["rajasthan", ["IN-RJ", "RJ"]], ["sikkim", ["IN-SK", "SK"]], ["tamil_nadu", ["IN-TN", "TN"]],
+        ["telangana", ["IN-TG", "TG", "IN-TS", "TS"]], ["tripura", ["IN-TR", "TR"]],
+        ["uttar_pradesh", ["IN-UP", "UP"]], ["uttarakhand", ["IN-UT", "UT", "IN-UK", "UK"]],
+        ["west_bengal", ["IN-WB", "WB"]], ["andaman_and_nicobar_islands", ["IN-AN", "AN", "andaman"]],
+        ["chandigarh", ["IN-CH", "CH"]], ["dadra_and_nagar_haveli_and_daman_and_diu", ["IN-DH", "DH", "IN-DN", "DN", "IN-DD", "DD", "dadra", "daman"]],
+        ["delhi", ["IN-DL", "DL"]], ["jammu_and_kashmir", ["IN-JK", "JK", "jammu", "kashmir"]],
+        ["ladakh", ["IN-LA", "LA"]], ["lakshadweep", ["IN-LD", "LD"]], ["puducherry", ["IN-PY", "PY", "pondicherry"]]
+      ];
+      aliasData.forEach(([id, aliases]) => {
+        ALIAS[id] = id;
+        aliases.forEach(a => { ALIAS[a] = id; ALIAS[a.toLowerCase()] = id; });
+      });
 
       const ACHIEVEMENTS = [
-        {id:'first_quiz',name:'First Steps',desc:'Complete first quiz',icon:'🎯',check:s=>s.quizzes>=1},
-        {id:'perfect_10',name:'Perfect 10',desc:'Score 10/10',icon:'💯',check:s=>s.bestScore>=10},
-        {id:'streak_5',name:'On Fire!',desc:'5-answer streak',icon:'🔥',check:s=>s.bestStreak>=5},
-        {id:'quiz_5',name:'Regular',desc:'Complete 5 quizzes',icon:'📚',check:s=>s.quizzes>=5},
-        {id:'master_10',name:'Explorer',desc:'Master 10 states',icon:'🗺️',check:s=>Object.values(s.stateMastery).filter(v=>v>=3).length>=10},
-        {id:'correct_50',name:'Half Century',desc:'50 correct',icon:'🎯',check:s=>s.totalCorrect>=50}
+        { id: 'first_quiz', name: 'First Steps', desc: 'Complete your first quiz', icon: '🎯', check: s => s.quizzes >= 1 },
+        { id: 'perfect_10', name: 'Perfect 10', desc: 'Score 10/10', icon: '💯', check: s => s.bestScore >= 10 },
+        { id: 'streak_5', name: 'On Fire!', desc: '5-answer streak', icon: '🔥', check: s => s.bestStreak >= 5 },
+        { id: 'quiz_5', name: 'Regular', desc: 'Complete 5 quizzes', icon: '📚', check: s => s.quizzes >= 5 },
+        { id: 'master_10', name: 'Explorer', desc: 'Master 10 states', icon: '🗺️', check: s => Object.values(s.stateMastery).filter(v => v >= 3).length >= 10 },
+        { id: 'correct_50', name: 'Half Century', desc: '50 correct answers', icon: '🎯', check: s => s.totalCorrect >= 50 }
       ];
 
+      // ═══════ APP STATE ═══════
       const M = {};
       STATES.forEach(s => M[s.id] = s);
 
       const ST = {
-        mode:'learn', matchedIds:new Set(), selected:null, dark:false, zoom:1,
-        difficulty:'medium', qCount:10, hintsLeft:1,
-        quiz:{active:false,questions:[],idx:0,score:0,timer:null,timeLeft:10,answered:false,history:[],streak:0,bestStreak:0},
-        stats:{quizzes:0,totalCorrect:0,bestScore:0,bestStreak:0,stateMastery:{},history:[]},
-        sheet:{state:'collapsed'}
+        mode: 'learn',
+        matchedIds: new Set(),
+        selected: null,
+        dark: false,
+        zoom: 1,
+        difficulty: 'medium',
+        qCount: 10,
+        hintsLeft: 1,
+        quiz: { active: false, questions: [], idx: 0, score: 0, timer: null, timeLeft: 10, answered: false, history: [], streak: 0, bestStreak: 0 },
+        stats: { quizzes: 0, totalCorrect: 0, bestScore: 0, bestStreak: 0, stateMastery: {}, history: [] },
+        sheet: { state: 'collapsed', isDragging: false, startY: 0, startTranslate: 0, currentTranslate: 0, startTime: 0 }
       };
 
+      // ═══════ DOM ═══════
       const $ = s => document.querySelector(s);
       const $$ = s => document.querySelectorAll(s);
 
+      // ═══════ INIT ═══════
       function init() {
         loadStats();
-        if (localStorage.getItem(CFG.DARK_KEY)==='true') toggleDark();
+        if (localStorage.getItem(CFG.DARK_KEY) === 'true') toggleDark();
         bindMap();
         bindSheet();
         bindTabs();
@@ -2041,117 +2100,283 @@
         $('#search-input').addEventListener('input', e => renderSearchList(e.target.value));
       }
 
-      function resolve(id) {
-        if (!id) return null;
-        let b = id.replace(/_marker$/,'');
-        if (M[b]) return b;
-        if (ALIAS[b]) return ALIAS[b];
-        const n = b.toLowerCase().replace(/[\s-]+/g,'_').replace(/[^a-z0-9_]/g,'');
-        return M[n] ? n : ALIAS[n] || null;
+      // ═══════ MAP BINDING ═══════
+      function resolve(svgId) {
+        if (!svgId) return null;
+        let base = svgId.replace(/_marker$/, '');
+        if (M[base]) return base;
+        if (ALIAS[base]) return ALIAS[base];
+        const norm = base.toLowerCase().replace(/[\s-]+/g, '_').replace(/[^a-z0-9_]/g, '');
+        if (M[norm]) return norm;
+        if (ALIAS[norm]) return ALIAS[norm];
+        return null;
       }
 
       function idFromEl(el) {
         if (!el) return null;
         if (el.classList?.contains('geo-marker-hitarea')) return el.getAttribute('data-state-id');
-        if (el.id) { const r=resolve(el.id); if(r)return r; }
+        if (el.id) { const r = resolve(el.id); if (r) return r; }
         const p = el.closest?.('[id]');
-        return p?.id ? resolve(p.id) : null;
+        if (p?.id) return resolve(p.id);
+        return null;
       }
 
       function bindMap() {
         const svg = $('#map-container svg');
         if (!svg) return;
 
-        svg.querySelectorAll('path,circle,polygon,polyline,ellipse').forEach(el => {
+        const els = svg.querySelectorAll('path,circle,polygon,polyline,ellipse');
+        let matched = 0;
+        const done = new Set();
+
+        els.forEach(el => {
           const id = el.id, tag = el.tagName.toLowerCase();
           if (!id || /^\d+$/.test(id)) {
-            if (['path','polygon','polyline'].includes(tag)) el.classList.add('geo-path');
+            if (['path', 'polygon', 'polyline'].includes(tag)) el.classList.add('geo-path');
             return;
           }
-          const isM = id.endsWith('_marker'), cid = resolve(id);
+
+          const isMarker = id.endsWith('_marker');
+          const cid = resolve(id);
+
           if (cid && M[cid]) {
-            if (isM) { el.classList.add('geo-marker'); createHitArea(el,cid); }
-            else { el.id = cid; el.removeAttribute('fill'); el.classList.add('geo-path'); el.setAttribute('data-state-id',cid); }
-            ST.matchedIds.add(cid);
-          } else if (['path','polygon','polyline'].includes(tag)) el.classList.add('geo-path');
+            if (isMarker) {
+              el.classList.add('geo-marker');
+              createHitArea(el, cid);
+            } else {
+              if (id !== cid) el.id = cid;
+              el.removeAttribute('fill');
+              el.removeAttribute('style');
+              el.classList.add('geo-path');
+              el.setAttribute('data-state-id', cid);
+            }
+            if (!done.has(cid)) { matched++; done.add(cid); }
+          } else {
+            if (['path', 'polygon', 'polyline'].includes(tag)) el.classList.add('geo-path');
+          }
         });
 
-        let lastTap = 0, longTimer = null;
+        ST.matchedIds = done;
+
+        // Touch events for map
+        let lastTap = 0;
+        let longPressTimer = null;
+        let touchStartPos = null;
+
         svg.addEventListener('touchstart', e => {
+          const touch = e.touches[0];
           const id = idFromEl(e.target);
-          if (id) longTimer = setTimeout(() => { showQuickTip(id,e.touches[0].clientX,e.touches[0].clientY); vibrate(); }, CFG.LONG_PRESS_MS);
-        }, {passive:true});
-        svg.addEventListener('touchmove', () => { if(longTimer){clearTimeout(longTimer);longTimer=null;} hideQuickTip(); }, {passive:true});
+          if (id) {
+            touchStartPos = { x: touch.clientX, y: touch.clientY };
+            longPressTimer = setTimeout(() => {
+              showQuickTip(id, touchStartPos.x, touchStartPos.y);
+              vibrate();
+            }, CFG.LONG_PRESS_MS);
+          }
+        }, { passive: true });
+
+        svg.addEventListener('touchmove', e => {
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
+          hideQuickTip();
+        }, { passive: true });
+
         svg.addEventListener('touchend', e => {
-          if(longTimer){clearTimeout(longTimer);longTimer=null;} hideQuickTip();
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
+          hideQuickTip();
+
           const id = idFromEl(e.target);
           if (!id) return;
-          const now = Date.now();
-          if (now - lastTap < 300) { ST.zoom = 2; applyZoom(); vibrate(); }
-          else handleClick(id);
-          lastTap = now;
-        }, {passive:true});
 
-        let initDist = 0, initZoom = 1;
-        svg.addEventListener('touchstart', e => { if(e.touches.length===2){initDist=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY);initZoom=ST.zoom;} }, {passive:true});
-        svg.addEventListener('touchmove', e => { if(e.touches.length===2){const d=Math.hypot(e.touches[0].pageX-e.touches[1].pageX,e.touches[0].pageY-e.touches[1].pageY);ST.zoom=Math.max(CFG.ZOOM_MIN,Math.min(CFG.ZOOM_MAX,initZoom*d/initDist));applyZoom();} }, {passive:true});
+          const now = Date.now();
+          if (now - lastTap < 300) {
+            zoomToState(id);
+          } else {
+            handleClick(id);
+          }
+          lastTap = now;
+        }, { passive: true });
+
+        // Pinch zoom
+        let initialDistance = 0;
+        let initialZoom = 1;
+
+        svg.addEventListener('touchstart', e => {
+          if (e.touches.length === 2) {
+            initialDistance = Math.hypot(
+              e.touches[0].pageX - e.touches[1].pageX,
+              e.touches[0].pageY - e.touches[1].pageY
+            );
+            initialZoom = ST.zoom;
+          }
+        }, { passive: true });
+
+        svg.addEventListener('touchmove', e => {
+          if (e.touches.length === 2) {
+            const currentDistance = Math.hypot(
+              e.touches[0].pageX - e.touches[1].pageX,
+              e.touches[0].pageY - e.touches[1].pageY
+            );
+            const scale = currentDistance / initialDistance;
+            ST.zoom = Math.max(CFG.ZOOM_MIN, Math.min(CFG.ZOOM_MAX, initialZoom * scale));
+            applyZoom();
+          }
+        }, { passive: true });
+
+        console.log(`🗺️ Bound ${matched}/${STATES.length} regions`);
       }
 
       function createHitArea(el, cid) {
         const tag = el.tagName.toLowerCase();
-        const extra = cid==='dadra_and_nagar_haveli_and_daman_and_diu' ? 40 : CFG.MARKER_HIT_EXTRA;
         let h;
-        if (tag==='circle') { h=document.createElementNS('http://www.w3.org/2000/svg','circle'); h.setAttribute('cx',el.getAttribute('cx')); h.setAttribute('cy',el.getAttribute('cy')); h.setAttribute('r',parseFloat(el.getAttribute('r')||5)+extra); }
-        else if (tag==='ellipse') { h=document.createElementNS('http://www.w3.org/2000/svg','ellipse'); h.setAttribute('cx',el.getAttribute('cx')); h.setAttribute('cy',el.getAttribute('cy')); h.setAttribute('rx',parseFloat(el.getAttribute('rx')||5)+extra); h.setAttribute('ry',parseFloat(el.getAttribute('ry')||5)+extra); }
-        else { try{const b=el.getBBox();h=document.createElementNS('http://www.w3.org/2000/svg','circle');h.setAttribute('cx',b.x+b.width/2);h.setAttribute('cy',b.y+b.height/2);h.setAttribute('r',Math.max(b.width,b.height,30)/2+extra);}catch(e){return;} }
-        h.classList.add('geo-marker-hitarea'); h.setAttribute('data-state-id',cid); el.parentNode.insertBefore(h,el);
+        const extra = cid === 'dadra_and_nagar_haveli_and_daman_and_diu' ? 40 : CFG.MARKER_HIT_EXTRA;
+
+        if (tag === 'circle') {
+          h = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          h.setAttribute('cx', el.getAttribute('cx'));
+          h.setAttribute('cy', el.getAttribute('cy'));
+          h.setAttribute('r', parseFloat(el.getAttribute('r') || 5) + extra);
+        } else if (tag === 'ellipse') {
+          h = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+          h.setAttribute('cx', el.getAttribute('cx'));
+          h.setAttribute('cy', el.getAttribute('cy'));
+          h.setAttribute('rx', parseFloat(el.getAttribute('rx') || 5) + extra);
+          h.setAttribute('ry', parseFloat(el.getAttribute('ry') || 5) + extra);
+        } else {
+          try {
+            const b = el.getBBox();
+            h = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            h.setAttribute('cx', b.x + b.width / 2);
+            h.setAttribute('cy', b.y + b.height / 2);
+            h.setAttribute('r', Math.max(b.width, b.height, 30) / 2 + extra);
+          } catch (e) { return; }
+        }
+
+        h.classList.add('geo-marker-hitarea');
+        h.setAttribute('data-state-id', cid);
+        el.parentNode.insertBefore(h, el);
       }
 
-      function handleClick(id) { const s=M[id]; if(!s)return; vibrate(); if(ST.mode==='learn')selectState(id,s); else if(ST.mode==='quiz'&&ST.quiz.active&&!ST.quiz.answered)quizAnswer(id,s); }
+      function handleClick(id) {
+        const s = M[id];
+        if (!s) return;
+        vibrate();
 
-      function zoomIn() { ST.zoom = Math.min(CFG.ZOOM_MAX, ST.zoom + CFG.ZOOM_STEP); applyZoom(); vibrate(); }
-      function zoomOut() { ST.zoom = Math.max(CFG.ZOOM_MIN, ST.zoom - CFG.ZOOM_STEP); applyZoom(); vibrate(); }
-      function resetZoom() { ST.zoom = 1; applyZoom(); vibrate(); }
-      function applyZoom() { const svg=$('#map-container svg'); if(svg)svg.style.transform=`scale(${ST.zoom})`; }
-      function vibrate() { if(navigator.vibrate)navigator.vibrate(10); }
+        if (ST.mode === 'learn') {
+          selectState(id, s);
+        } else if (ST.mode === 'quiz' && ST.quiz.active && !ST.quiz.answered) {
+          quizAnswer(id, s);
+        }
+      }
 
-      function showQuickTip(id, x, y) { const s=M[id]; if(!s)return; const t=$('#quick-tip'); t.textContent=`${s.name} • ${s.capital}`; t.style.left=`${Math.min(x,window.innerWidth-150)}px`; t.style.top=`${y-50}px`; t.classList.add('visible'); }
-      function hideQuickTip() { $('#quick-tip').classList.remove('visible'); }
+      // ═══════ ZOOM CONTROLS ═══════
+      function zoomIn() {
+        ST.zoom = Math.min(CFG.ZOOM_MAX, ST.zoom + CFG.ZOOM_STEP);
+        applyZoom();
+        vibrate();
+      }
 
+      function zoomOut() {
+        ST.zoom = Math.max(CFG.ZOOM_MIN, ST.zoom - CFG.ZOOM_STEP);
+        applyZoom();
+        vibrate();
+      }
+
+      function resetZoom() {
+        ST.zoom = 1;
+        applyZoom();
+        vibrate();
+      }
+
+      function applyZoom() {
+        const svg = $('#map-container svg');
+        if (svg) svg.style.transform = `scale(${ST.zoom})`;
+      }
+
+      function zoomToState(id) {
+        ST.zoom = 2;
+        applyZoom();
+        vibrate();
+      }
+
+      // ═══════ HAPTIC ═══════
+      function vibrate() {
+        if (navigator.vibrate) navigator.vibrate(10);
+      }
+
+      // ═══════ QUICK TIP ═══════
+      function showQuickTip(id, x, y) {
+        const s = M[id];
+        if (!s) return;
+        const tip = $('#quick-tip');
+        tip.textContent = `${s.name} • ${s.capital}`;
+        tip.style.left = `${Math.min(x, window.innerWidth - 180)}px`;
+        tip.style.top = `${y - 60}px`;
+        tip.classList.add('visible');
+      }
+
+      function hideQuickTip() {
+        $('#quick-tip').classList.remove('visible');
+      }
+
+      // ═══════ LEARN MODE ═══════
       function selectState(id, s) {
-        resetHL(); ST.selected = id; hl(id,'selected');
-        $$('.geo-path').forEach(el => { const sid=el.getAttribute('data-state-id'); if(sid&&sid!==id)el.classList.add('dimmed'); });
-        renderStateInfo(s); setSheetState('half');
+        resetHL();
+        ST.selected = id;
+        hl(id, 'selected');
+
+        $$('.geo-path').forEach(el => {
+          const sid = el.getAttribute('data-state-id');
+          if (sid && sid !== id) el.classList.add('dimmed');
+        });
+
+        renderStateInfo(s);
+        setSheetState('half');
       }
 
       function renderStateInfo(s) {
         $('#learn-placeholder').style.display = 'none';
-        $('#state-info').style.display = 'block';
+        const info = $('#state-info');
+        info.style.display = 'block';
+
         $('#info-name').textContent = s.name;
-        $('#info-badge').innerHTML = `<span class="badge ${s.type==='State'?'badge-state':'badge-ut'}">${s.type}</span>`;
-        const zc = ZONE_COLORS[s.zone] || '#666';
-        $('#info-zone').innerHTML = `<span class="badge-zone" style="background:${zc}20;color:${zc}">${s.zone}</span>`;
+        $('#info-badge').innerHTML = `<span class="badge ${s.type === 'State' ? 'badge-state' : 'badge-ut'}">${s.type}</span>`;
+
+        const zoneColor = ZONE_COLORS[s.zone] || '#666';
+        $('#info-zone').innerHTML = `<span class="badge-zone" style="background:${zoneColor}20;color:${zoneColor}">${s.zone}</span>`;
 
         $('#tab-basic').innerHTML = `
           <div class="info-item"><span class="info-icon">🏛️</span><div><div class="info-label">Capital</div><div class="info-value">${s.capital}</div></div></div>
-          <div class="info-item"><span class="info-icon">🗣️</span><div><div class="info-label">Language</div><div class="info-value">${s.language||'—'}</div></div></div>
-          <div class="info-item"><span class="info-icon">📐</span><div><div class="info-label">Area</div><div class="info-value">${s.area?s.area.toLocaleString()+' km²':'—'}</div></div></div>
-          <div class="info-item"><span class="info-icon">👥</span><div><div class="info-label">Population</div><div class="info-value">${s.population?s.population.toLocaleString():'—'}</div></div></div>
-          <div class="info-item"><span class="info-icon">📖</span><div><div class="info-label">Literacy</div><div class="info-value">${s.literacy?s.literacy+'%':'—'}</div></div></div>`;
+          <div class="info-item"><span class="info-icon">🗣️</span><div><div class="info-label">Language</div><div class="info-value">${s.language || '—'}</div></div></div>
+          <div class="info-item"><span class="info-icon">📐</span><div><div class="info-label">Area</div><div class="info-value">${s.area ? s.area.toLocaleString() + ' km²' : '—'}</div></div></div>
+          <div class="info-item"><span class="info-icon">👥</span><div><div class="info-label">Population</div><div class="info-value">${s.population ? s.population.toLocaleString() : '—'}</div></div></div>
+          <div class="info-item"><span class="info-icon">📖</span><div><div class="info-label">Literacy</div><div class="info-value">${s.literacy ? s.literacy + '%' : '—'}</div></div></div>
+        `;
 
         $('#tab-nature').innerHTML = `
-          <div class="info-item"><span class="info-icon">🐾</span><div><div class="info-label">Animal</div><div class="info-value">${s.animal||'—'}</div></div></div>
-          <div class="info-item"><span class="info-icon">🐦</span><div><div class="info-label">Bird</div><div class="info-value">${s.bird||'—'}</div></div></div>
-          <div class="info-item"><span class="info-icon">🌺</span><div><div class="info-label">Flower</div><div class="info-value">${s.flower||'—'}</div></div></div>
-          <div class="info-item"><span class="info-icon">🏞️</span><div><div class="info-label">River</div><div class="info-value">${s.river||'—'}</div></div></div>`;
+          <div class="info-item"><span class="info-icon">🐾</span><div><div class="info-label">State Animal</div><div class="info-value">${s.animal || '—'}</div></div></div>
+          <div class="info-item"><span class="info-icon">🐦</span><div><div class="info-label">State Bird</div><div class="info-value">${s.bird || '—'}</div></div></div>
+          <div class="info-item"><span class="info-icon">🌺</span><div><div class="info-label">State Flower</div><div class="info-value">${s.flower || '—'}</div></div></div>
+          <div class="info-item"><span class="info-icon">🏞️</span><div><div class="info-label">Major River</div><div class="info-value">${s.river || '—'}</div></div></div>
+        `;
 
-        const nbHTML = (s.neighbors||[]).map(n => M[n] ? `<span class="neighbor-chip" onclick="App.selectFromSearch('${n}')">${M[n].name}</span>` : '').join('');
+        const neighborsHTML = (s.neighbors || []).map(nid => {
+          const n = M[nid];
+          return n ? `<span class="neighbor-chip" onclick="App.selectFromSearch('${nid}')">${n.name}</span>` : '';
+        }).join('');
+
         $('#tab-more').innerHTML = `
           ${s.landmarks?.length ? `<div class="info-item"><span class="info-icon">🏛️</span><div><div class="info-label">Landmarks</div><div class="info-value">${s.landmarks.join(', ')}</div></div></div>` : ''}
           ${s.funFact ? `<div class="fun-fact"><div class="fun-fact-title">💡 Fun Fact</div><div class="fun-fact-text">${s.funFact}</div></div>` : ''}
-          ${nbHTML ? `<div class="neighbors"><div class="neighbors-title">🤝 Neighbors</div><div class="neighbors-list">${nbHTML}</div></div>` : ''}`;
+          ${neighborsHTML ? `<div class="neighbors"><div class="neighbors-title">🤝 Neighbors</div><div class="neighbors-list">${neighborsHTML}</div></div>` : ''}
+        `;
 
-        $$('.info-tab').forEach((t,i) => t.classList.toggle('active',i===0));
+        $$('.info-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
         $('#tab-basic').style.display = '';
         $('#tab-nature').style.display = 'none';
         $('#tab-more').style.display = 'none';
@@ -2161,184 +2386,732 @@
         $('#info-tabs')?.addEventListener('click', e => {
           const tab = e.target.closest('.info-tab');
           if (!tab) return;
-          const n = tab.dataset.tab;
+
+          const tabName = tab.dataset.tab;
           $$('.info-tab').forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
-          ['basic','nature','more'].forEach(t => $(`#tab-${t}`).style.display = t===n ? '' : 'none');
+
+          ['basic', 'nature', 'more'].forEach(t => {
+            $(`#tab-${t}`).style.display = t === tabName ? '' : 'none';
+          });
         });
       }
 
+      // ═══════ BOTTOM SHEET ═══════
       function bindSheet() {
-        const sheet = $('#bottom-sheet'), drag = $('#sheet-drag-area');
-        let startY=0, startH=0, dragging=false;
+        const sheet = $('#bottom-sheet');
+        const dragArea = $('#sheet-drag-area');
+        
+        let startY = 0;
+        let startTranslateY = 0;
+        let isDragging = false;
+        let startTime = 0;
 
-        drag.addEventListener('touchstart', e => {
-          dragging = true; startY = e.touches[0].clientY;
-          startH = sheet.offsetHeight;
+        dragArea.addEventListener('touchstart', e => {
+          isDragging = true;
+          startY = e.touches[0].clientY;
+          startTime = Date.now();
+          
           sheet.classList.add('no-transition');
-        }, {passive:true});
+          const computedStyle = window.getComputedStyle(sheet);
+          const transform = computedStyle.transform;
+          
+          if (transform && transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            startTranslateY = matrix.m42;
+          } else {
+            const sheetHeight = sheet.offsetHeight;
+            if (ST.sheet.state === 'collapsed') {
+              startTranslateY = sheetHeight - 90;
+            } else if (ST.sheet.state === 'half') {
+              startTranslateY = sheetHeight - (window.innerHeight * 0.5);
+            } else {
+              startTranslateY = 0;
+            }
+          }
+        }, { passive: true });
 
-        drag.addEventListener('touchmove', e => {
-          if (!dragging) return;
-          const dy = startY - e.touches[0].clientY;
-          const newH = Math.max(100, Math.min(window.innerHeight*0.9, startH + dy));
-          sheet.style.height = newH + 'px';
-        }, {passive:true});
+        dragArea.addEventListener('touchmove', e => {
+          if (!isDragging) return;
+          
+          const currentY = e.touches[0].clientY;
+          const deltaY = currentY - startY;
+          let newTranslate = startTranslateY + deltaY;
+          
+          const maxTranslate = sheet.offsetHeight - 90;
+          newTranslate = Math.max(0, Math.min(maxTranslate, newTranslate));
+          
+          sheet.style.transform = `translateY(${newTranslate}px)`;
+        }, { passive: true });
 
-        drag.addEventListener('touchend', e => {
-          if (!dragging) return;
-          dragging = false;
+        dragArea.addEventListener('touchend', e => {
+          if (!isDragging) return;
+          isDragging = false;
+          
           sheet.classList.remove('no-transition');
-          const h = sheet.offsetHeight;
-          const vh = window.innerHeight;
-          sheet.style.height = '';
-          if (h < vh * 0.2) setSheetState('collapsed');
-          else if (h < vh * 0.65) setSheetState('half');
-          else setSheetState('expanded');
-        }, {passive:true});
+          
+          const endY = e.changedTouches[0].clientY;
+          const deltaY = endY - startY;
+          const timeDiff = Date.now() - startTime;
+          const velocity = Math.abs(deltaY) / timeDiff;
+          
+          const sheetHeight = sheet.offsetHeight;
+          const maxTranslate = sheetHeight - 90;
+          
+          let currentTranslate = startTranslateY + deltaY;
+          currentTranslate = Math.max(0, Math.min(maxTranslate, currentTranslate));
+          
+          let targetState;
+          
+          if (velocity > CFG.VELOCITY_THRESHOLD) {
+            if (deltaY < 0) {
+              if (ST.sheet.state === 'collapsed') targetState = 'half';
+              else if (ST.sheet.state === 'half') targetState = 'expanded';
+              else targetState = 'expanded';
+            } else {
+              if (ST.sheet.state === 'expanded') targetState = 'half';
+              else if (ST.sheet.state === 'half') targetState = 'collapsed';
+              else targetState = 'collapsed';
+            }
+          } else {
+            const expandedThreshold = sheetHeight * 0.25;
+            const halfThreshold = sheetHeight * 0.6;
+            
+            if (currentTranslate < expandedThreshold) targetState = 'expanded';
+            else if (currentTranslate < halfThreshold) targetState = 'half';
+            else targetState = 'collapsed';
+          }
+          
+          setSheetState(targetState);
+        }, { passive: true });
+
+        dragArea.addEventListener('touchcancel', () => {
+          isDragging = false;
+          sheet.classList.remove('no-transition');
+          setSheetState(ST.sheet.state);
+        }, { passive: true });
       }
 
       function setSheetState(state) {
-        const sheet = $('#bottom-sheet'), ov = $('#bottom-sheet-overlay'), hint = $('#sheet-hint');
-        sheet.classList.remove('collapsed','half','expanded','hidden-sheet','no-transition');
-        sheet.style.height = '';
+        const sheet = $('#bottom-sheet');
+        const overlay = $('#bottom-sheet-overlay');
+        const hint = $('#sheet-hint');
+        
+        sheet.classList.remove('collapsed', 'half', 'expanded', 'hidden-sheet', 'no-transition');
+        sheet.style.transform = '';
         sheet.classList.add(state);
         ST.sheet.state = state;
-        ov.classList.toggle('visible', state==='expanded');
-        if (hint) hint.textContent = state==='collapsed' ? 'Swipe up to explore' : state==='half' ? 'Swipe up for more' : 'Swipe down';
+        
+        if (state === 'expanded') {
+          overlay.classList.add('visible');
+        } else {
+          overlay.classList.remove('visible');
+        }
+        
+        if (hint) {
+          if (state === 'collapsed') hint.textContent = 'Swipe up to explore';
+          else if (state === 'half') hint.textContent = 'Swipe up for more';
+          else hint.textContent = 'Swipe down to minimize';
+        }
       }
 
-      function hideSheet() { $('#bottom-sheet').classList.add('hidden-sheet'); $('#bottom-sheet-overlay').classList.remove('visible'); }
-      function collapseSheet() { setSheetState('collapsed'); }
-
-      function enterQuizMode() { $('#app').classList.add('quiz-active'); $('#bottom-nav').classList.add('hidden-nav'); hideSheet(); $('#search-fab').classList.add('hidden'); $('#theme-fab').classList.add('hidden'); }
-      function exitQuizMode() { $('#app').classList.remove('quiz-active'); $('#bottom-nav').classList.remove('hidden-nav'); $('#search-fab').classList.remove('hidden'); $('#theme-fab').classList.remove('hidden'); }
-
-      function openSearch() { $('#search-overlay').classList.add('active'); setTimeout(()=>$('#search-input').focus(),100); renderSearchList(''); }
-      function closeSearch() { $('#search-overlay').classList.remove('active'); $('#search-input').value=''; }
-
-      function renderSearchList(q) {
-        const lc = q.toLowerCase().trim();
-        const list = STATES.filter(s => !lc || s.name.toLowerCase().includes(lc) || s.capital.toLowerCase().includes(lc));
-        $('#search-results').innerHTML = list.map(s => `<div class="search-item" onclick="App.selectFromSearch('${s.id}')"><span class="search-dot ${s.type==='State'?'search-dot-state':'search-dot-ut'}"></span><span class="search-name">${s.name}</span><span class="search-meta">${s.capital}</span></div>`).join('');
+      function hideSheet() {
+        const sheet = $('#bottom-sheet');
+        sheet.classList.remove('collapsed', 'half', 'expanded');
+        sheet.classList.add('hidden-sheet');
+        $('#bottom-sheet-overlay').classList.remove('visible');
       }
 
-      function selectFromSearch(id) { closeSearch(); const s=M[id]; if(!s)return; if(ST.mode!=='learn')switchMode('learn'); setTimeout(()=>selectState(id,s),100); }
+      function collapseSheet() {
+        setSheetState('collapsed');
+      }
 
+      // ═══════ QUIZ MODE UI ═══════
+      function enterQuizMode() {
+        $('#app').classList.add('quiz-active');
+        $('#bottom-nav').classList.add('hidden-nav');
+        hideSheet();
+        $('#search-fab').classList.add('hidden');
+        $('#theme-fab').classList.add('hidden');
+      }
+
+      function exitQuizMode() {
+        $('#app').classList.remove('quiz-active');
+        $('#bottom-nav').classList.remove('hidden-nav');
+        $('#search-fab').classList.remove('hidden');
+        $('#theme-fab').classList.remove('hidden');
+      }
+
+      // ═══════ SEARCH ═══════
+      function openSearch() {
+        $('#search-overlay').classList.add('active');
+        setTimeout(() => $('#search-input').focus(), 100);
+        renderSearchList('');
+      }
+
+      function closeSearch() {
+        $('#search-overlay').classList.remove('active');
+        $('#search-input').value = '';
+        $('#search-input').blur();
+      }
+
+      function renderSearchList(query) {
+        const q = query.toLowerCase().trim();
+        const list = STATES.filter(s => {
+          if (!q) return true;
+          return s.name.toLowerCase().includes(q) ||
+            s.capital.toLowerCase().includes(q) ||
+            (s.language || '').toLowerCase().includes(q);
+        });
+
+        $('#search-results').innerHTML = list.map(s => `
+          <div class="search-item" onclick="App.selectFromSearch('${s.id}')">
+            <span class="search-dot ${s.type === 'State' ? 'search-dot-state' : 'search-dot-ut'}"></span>
+            <span class="search-name">${s.name}</span>
+            <span class="search-meta">${s.capital}</span>
+          </div>
+        `).join('');
+      }
+
+      function selectFromSearch(id) {
+        closeSearch();
+        const s = M[id];
+        if (!s) return;
+
+        if (ST.mode !== 'learn') switchMode('learn');
+        setTimeout(() => selectState(id, s), 100);
+      }
+
+      // ═══════ MODE SWITCHING ═══════
       function switchMode(mode) {
-        if (ST.quiz.active && mode!=='quiz') { if(!confirm('End quiz?'))return; endQuiz(); }
-        ST.mode = mode; resetHL(); exitQuizMode();
-        $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.mode===mode));
-        $('#learn-content').style.display = mode==='learn' ? '' : 'none';
-        $('#quiz-content').style.display = mode==='quiz' ? '' : 'none';
-        $('#stats-content').style.display = mode==='stats' ? '' : 'none';
-        if (mode==='learn') { $('#learn-placeholder').style.display=''; $('#state-info').style.display='none'; ST.selected=null; setSheetState('collapsed'); }
-        else if (mode==='quiz') { $('#quiz-setup').style.display=''; $('#quiz-results').style.display='none'; $('#quiz-float').classList.remove('active'); setSheetState('expanded'); }
-        else if (mode==='stats') { renderStats(); setSheetState('expanded'); }
+        if (ST.quiz.active && mode !== 'quiz') {
+          if (!confirm('End current quiz?')) return;
+          endQuiz();
+        }
+
+        ST.mode = mode;
+        resetHL();
+        exitQuizMode();
+
+        $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.mode === mode));
+
+        $('#learn-content').style.display = mode === 'learn' ? '' : 'none';
+        $('#quiz-content').style.display = mode === 'quiz' ? '' : 'none';
+        $('#stats-content').style.display = mode === 'stats' ? '' : 'none';
+
+        if (mode === 'learn') {
+          $('#learn-placeholder').style.display = '';
+          $('#state-info').style.display = 'none';
+          ST.selected = null;
+          setSheetState('collapsed');
+        } else if (mode === 'quiz') {
+          $('#quiz-setup').style.display = '';
+          $('#quiz-results').style.display = 'none';
+          $('#quiz-float').classList.remove('active');
+          setSheetState('expanded');
+        } else if (mode === 'stats') {
+          renderStats();
+          setSheetState('expanded');
+        }
       }
 
+      // ═══════ QUIZ ENGINE ═══════
       function bindDifficultyAndCount() {
-        $('#diff-grid').addEventListener('click', e => { const b=e.target.closest('.diff-btn'); if(!b)return; ST.difficulty=b.dataset.diff; $$('#diff-grid .diff-btn').forEach(x=>x.classList.toggle('selected',x===b)); });
-        $('#count-grid').addEventListener('click', e => { const b=e.target.closest('.count-btn'); if(!b)return; ST.qCount=parseInt(b.dataset.count); $$('#count-grid .count-btn').forEach(x=>x.classList.toggle('selected',x===b)); });
+        $('#diff-grid').addEventListener('click', e => {
+          const btn = e.target.closest('.diff-btn');
+          if (!btn) return;
+          ST.difficulty = btn.dataset.diff;
+          $$('#diff-grid .diff-btn').forEach(b => b.classList.toggle('selected', b === btn));
+        });
+
+        $('#count-grid').addEventListener('click', e => {
+          const btn = e.target.closest('.count-btn');
+          if (!btn) return;
+          ST.qCount = parseInt(btn.dataset.count);
+          $$('#count-grid .count-btn').forEach(b => b.classList.toggle('selected', b === btn));
+        });
       }
 
       function startQuiz() {
-        if (ST.matchedIds.size===0) { toast('Add SVG map!','error'); return; }
-        const diff = CFG.DIFFICULTIES[ST.difficulty], q = ST.quiz;
-        q.idx=0; q.score=0; q.history=[]; q.answered=false; q.streak=0; q.bestStreak=0;
+        if (ST.matchedIds.size === 0) {
+          toast('Add an SVG map first!', 'error');
+          return;
+        }
+
+        const diff = CFG.DIFFICULTIES[ST.difficulty];
+        const q = ST.quiz;
+
+        q.idx = 0;
+        q.score = 0;
+        q.history = [];
+        q.answered = false;
+        q.streak = 0;
+        q.bestStreak = 0;
         ST.hintsLeft = diff.hints;
+
         q.questions = genQuestions(diff);
         if (!q.questions.length) return;
-        q.active = true; resetHL(); enterQuizMode();
-        $('#quiz-setup').style.display='none'; $('#quiz-results').style.display='none'; $('#quiz-float').classList.add('active');
+
+        q.active = true;
+        resetHL();
+
+        // Enter quiz mode - hide everything except map and question
+        enterQuizMode();
+        
+        $('#quiz-setup').style.display = 'none';
+        $('#quiz-results').style.display = 'none';
+        $('#quiz-float').classList.add('active');
+
         $('#q-total').textContent = q.questions.length;
-        updateHintBtn(); renderDots(); nextQ(diff);
+        updateHintBtn();
+        renderDots();
+        nextQuestion(diff);
       }
 
-      function exitQuiz() { if(confirm('Exit quiz?')){endQuiz();exitQuizMode();setSheetState('expanded');$('#quiz-setup').style.display='';} }
-      function restartQuiz() { exitQuizMode(); $('#quiz-results').style.display='none'; $('#quiz-setup').style.display=''; setSheetState('expanded'); }
+      function exitQuiz() {
+        if (confirm('Exit quiz? Progress will be lost.')) {
+          endQuiz();
+          exitQuizMode();
+          setSheetState('expanded');
+          $('#quiz-setup').style.display = '';
+          $('#quiz-results').style.display = 'none';
+        }
+      }
+
+      function restartQuiz() {
+        exitQuizMode();
+        $('#quiz-results').style.display = 'none';
+        $('#quiz-setup').style.display = '';
+        setSheetState('expanded');
+      }
 
       function genQuestions(diff) {
-        const pool = STATES.filter(s => ST.matchedIds.has(s.id)), qs = [], used = new Set();
+        const pool = STATES.filter(s => ST.matchedIds.has(s.id));
+        if (!pool.length) return [];
+
+        const qs = [];
+        const used = new Set();
+        const usedSpec = new Set();
         const maxQ = Math.min(ST.qCount, pool.length);
-        while (qs.length < maxQ) {
-          const av = pool.filter(s => !used.has(s.id));
-          if (!av.length) break;
-          const s = av[~~(Math.random()*av.length)];
-          used.add(s.id);
-          qs.push({html:`Find <strong>${s.name}</strong>`,ans:[s.id],disp:s.name,hint:`Zone: ${s.zone}`});
+        const types = diff.types;
+
+        const gens = {
+          name: () => {
+            const a = pool.filter(s => !used.has(s.id));
+            if (!a.length) return null;
+            const s = a[~~(Math.random() * a.length)];
+            used.add(s.id);
+            return { html: `Find <strong>${s.name}</strong>`, ans: [s.id], disp: s.name, hint: `Zone: ${s.zone}` };
+          },
+          capital: () => {
+            const a = pool.filter(s => !used.has(s.id));
+            if (!a.length) return null;
+            const s = a[~~(Math.random() * a.length)];
+            used.add(s.id);
+            return { html: `Capital is <strong>${s.capital}</strong>`, ans: [s.id], disp: s.name, hint: `${s.zone} zone` };
+          },
+          sea: () => {
+            for (const [k, d] of Object.entries(SEA)) {
+              if (usedSpec.has('sea_' + k)) continue;
+              const av = d.a.filter(i => ST.matchedIds.has(i));
+              if (av.length) {
+                usedSpec.add('sea_' + k);
+                return { html: d.q, ans: av, disp: av.map(i => M[i]?.name).slice(0, 2).join(', '), hint: 'Coastal state' };
+              }
+            }
+            return null;
+          },
+          country: () => {
+            const keys = Object.keys(COUNTRY).sort(() => Math.random() - 0.5);
+            for (const k of keys) {
+              if (usedSpec.has('cb_' + k)) continue;
+              const d = COUNTRY[k];
+              const av = d.a.filter(i => ST.matchedIds.has(i));
+              if (av.length) {
+                usedSpec.add('cb_' + k);
+                return { html: d.q, ans: av, disp: av.map(i => M[i]?.name).slice(0, 2).join(', '), hint: 'Border state' };
+              }
+            }
+            return null;
+          },
+          neighbor: () => {
+            const a = pool.filter(s => !used.has(s.id) && s.neighbors?.length > 0);
+            if (!a.length) return null;
+            const s = a[~~(Math.random() * a.length)];
+            const nb = s.neighbors.filter(n => ST.matchedIds.has(n));
+            if (!nb.length) return null;
+            const target = nb[~~(Math.random() * nb.length)];
+            used.add(target);
+            return { html: `Neighbors <strong>${s.name}</strong>`, ans: nb, disp: M[target]?.name, hint: `${s.zone} zone` };
+          },
+          river: () => {
+            const withRiver = pool.filter(s => s.river && s.river !== '—' && !used.has(s.id));
+            if (!withRiver.length) return null;
+            const s = withRiver[~~(Math.random() * withRiver.length)];
+            used.add(s.id);
+            return { html: `<strong>${s.river.split(',')[0]}</strong> flows through?`, ans: [s.id], disp: s.name, hint: s.zone };
+          },
+          language: () => {
+            const a = pool.filter(s => s.language && !used.has(s.id));
+            if (!a.length) return null;
+            const s = a[~~(Math.random() * a.length)];
+            used.add(s.id);
+            return { html: `<strong>${s.language}</strong> is spoken in?`, ans: [s.id], disp: s.name, hint: s.zone };
+          },
+          landmark: () => {
+            const a = pool.filter(s => s.landmarks?.length && !used.has(s.id));
+            if (!a.length) return null;
+            const s = a[~~(Math.random() * a.length)];
+            const lm = s.landmarks[0];
+            used.add(s.id);
+            return { html: `<strong>${lm}</strong> is in?`, ans: [s.id], disp: s.name, hint: s.zone };
+          },
+          zone: () => {
+            const zones = Object.keys(ZONE_COLORS);
+            const zone = zones[~~(Math.random() * zones.length)];
+            if (usedSpec.has('zone_' + zone)) return null;
+            usedSpec.add('zone_' + zone);
+            const inZone = pool.filter(s => s.zone === zone).map(s => s.id);
+            if (!inZone.length) return null;
+            return { html: `Any <strong>${zone}</strong> zone state`, ans: inZone, disp: inZone.slice(0, 2).map(i => M[i]?.name).join(', '), hint: zone };
+          },
+          symbol: () => {
+            const a = pool.filter(s => s.animal && s.animal !== '—' && !used.has(s.id));
+            if (!a.length) return null;
+            const s = a[~~(Math.random() * a.length)];
+            used.add(s.id);
+            return { html: `<strong>${s.animal}</strong> is the animal of?`, ans: [s.id], disp: s.name, hint: s.zone };
+          }
+        };
+
+        let att = 0;
+        while (qs.length < maxQ && att < 80) {
+          att++;
+          const type = types[~~(Math.random() * types.length)];
+          const gen = gens[type];
+          if (!gen) continue;
+          const q = gen();
+          if (q) qs.push(q);
         }
-        return qs.sort(() => Math.random()-0.5);
+
+        while (qs.length < maxQ) {
+          const q = gens.name();
+          if (q) qs.push(q);
+          else break;
+        }
+
+        return qs.sort(() => Math.random() - 0.5);
       }
 
-      function nextQ(diff) {
+      function nextQuestion(diff) {
         diff = diff || CFG.DIFFICULTIES[ST.difficulty];
-        const q = ST.quiz; q.answered = false; q.timeLeft = diff.timer; resetHL();
+        const q = ST.quiz;
+        q.answered = false;
+        q.timeLeft = diff.timer;
+        resetHL();
+
         const cur = q.questions[q.idx];
-        $('#q-num').textContent = q.idx+1; $('#q-text').innerHTML = cur.html; $('#q-score').textContent = q.score;
-        setDot(q.idx,'current'); startTimer(diff); updateHintBtn();
+        $('#q-num').textContent = q.idx + 1;
+        $('#q-text').innerHTML = cur.html;
+        $('#q-score').textContent = q.score;
+
+        setDot(q.idx, 'current');
+        startTimer(diff);
+        updateHintBtn();
       }
 
       function quizAnswer(id, s) {
-        const q=ST.quiz, cur=q.questions[q.idx]; q.answered=true; clearInterval(q.timer);
-        const ok = cur.ans.includes(id), time = CFG.DIFFICULTIES[ST.difficulty].timer - q.timeLeft;
-        q.history.push({q:cur,click:id,ok,time});
-        if (ok) { q.score++; q.streak++; if(q.streak>q.bestStreak)q.bestStreak=q.streak; hl(id,'correct'); toast(`✅ ${s.name}`,'success'); setDot(q.idx,'correct'); ST.stats.stateMastery[id]=(ST.stats.stateMastery[id]||0)+1; vibrate(); }
-        else { q.streak=0; hl(id,'wrong'); cur.ans.forEach(c=>hl(c,'correct')); toast(`❌ ${cur.disp}`,'error'); setDot(q.idx,'wrong'); }
-        $('#q-score').textContent = q.score; schedNext();
+        const q = ST.quiz, cur = q.questions[q.idx];
+        q.answered = true;
+        clearInterval(q.timer);
+
+        const ok = cur.ans.includes(id);
+        const time = CFG.DIFFICULTIES[ST.difficulty].timer - q.timeLeft;
+        q.history.push({ q: cur, click: id, ok, time });
+
+        if (ok) {
+          q.score++;
+          q.streak++;
+          if (q.streak > q.bestStreak) q.bestStreak = q.streak;
+          hl(id, 'correct');
+          toast(`✅ ${s.name}`, 'success');
+          setDot(q.idx, 'correct');
+          ST.stats.stateMastery[id] = (ST.stats.stateMastery[id] || 0) + 1;
+          vibrate();
+        } else {
+          q.streak = 0;
+          hl(id, 'wrong');
+          cur.ans.forEach(c => hl(c, 'correct'));
+          toast(`❌ ${cur.disp}`, 'error');
+          setDot(q.idx, 'wrong');
+        }
+
+        $('#q-score').textContent = q.score;
+        scheduleNext();
       }
 
-      function handleTimeout() { const q=ST.quiz; if(q.answered)return; q.answered=true; q.streak=0; const cur=q.questions[q.idx]; q.history.push({q:cur,click:null,ok:false,time:CFG.DIFFICULTIES[ST.difficulty].timer}); cur.ans.forEach(c=>hl(c,'correct')); toast(`⏰ ${cur.disp}`,'error'); setDot(q.idx,'wrong'); schedNext(); }
-      function schedNext() { setTimeout(()=>{if(ST.quiz.idx<ST.quiz.questions.length-1){ST.quiz.idx++;nextQ();}else finishQuiz();},CFG.FEEDBACK_MS); }
+      function handleTimeout() {
+        const q = ST.quiz;
+        if (q.answered) return;
+        q.answered = true;
+        q.streak = 0;
 
-      function useHint() { if(ST.hintsLeft<=0||ST.quiz.answered)return; ST.hintsLeft--; updateHintBtn(); const cur=ST.quiz.questions[ST.quiz.idx]; cur.ans.slice(0,2).forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hint-glow');setTimeout(()=>el?.classList.remove('hint-glow'),2000);}); toast(`💡 ${cur.hint}`,'info'); }
-      function updateHintBtn() { const b=$('#hint-btn'); b.textContent=`💡 ${ST.hintsLeft}`; b.disabled=ST.hintsLeft<=0; b.style.display=CFG.DIFFICULTIES[ST.difficulty].hints===0?'none':''; }
+        const cur = q.questions[q.idx];
+        q.history.push({ q: cur, click: null, ok: false, time: CFG.DIFFICULTIES[ST.difficulty].timer });
+        cur.ans.forEach(c => hl(c, 'correct'));
+        toast(`⏰ ${cur.disp}`, 'error');
+        setDot(q.idx, 'wrong');
+        scheduleNext();
+      }
+
+      function scheduleNext() {
+        setTimeout(() => {
+          if (ST.quiz.idx < ST.quiz.questions.length - 1) {
+            ST.quiz.idx++;
+            nextQuestion();
+          } else {
+            finishQuiz();
+          }
+        }, CFG.FEEDBACK_MS);
+      }
+
+      function useHint() {
+        if (ST.hintsLeft <= 0 || ST.quiz.answered) return;
+        ST.hintsLeft--;
+        updateHintBtn();
+
+        const cur = ST.quiz.questions[ST.quiz.idx];
+        cur.ans.slice(0, 2).forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hint-glow');
+          setTimeout(() => el?.classList.remove('hint-glow'), 2000);
+        });
+
+        toast(`💡 ${cur.hint}`, 'info');
+      }
+
+      function updateHintBtn() {
+        const btn = $('#hint-btn');
+        btn.textContent = `💡 ${ST.hintsLeft}`;
+        btn.disabled = ST.hintsLeft <= 0;
+        btn.style.display = CFG.DIFFICULTIES[ST.difficulty].hints === 0 ? 'none' : '';
+      }
 
       function finishQuiz() {
-        const q=ST.quiz; q.active=false; clearInterval(q.timer); resetHL();
-        const s=ST.stats; s.quizzes++; s.totalCorrect+=q.score; if(q.score>s.bestScore)s.bestScore=q.score; if(q.bestStreak>s.bestStreak)s.bestStreak=q.bestStreak; saveStats();
-        exitQuizMode(); $('#quiz-float').classList.remove('active'); $('#quiz-results').style.display=''; setSheetState('expanded');
-        $('#res-score').textContent=q.score; $('#res-total').textContent='/'+q.questions.length;
-        const avg=q.history.length?Math.round(q.history.reduce((a,h)=>a+h.time,0)/q.history.length*10)/10:0;
-        $('#res-time').textContent=avg+'s'; $('#res-streak').textContent=q.bestStreak; $('#res-accuracy').textContent=Math.round(q.score/q.questions.length*100)+'%';
-        const pct=q.score/q.questions.length; let e,t,u;
-        if(pct===1){e='🏆';t='Perfect!';u='Flawless!';}else if(pct>=0.8){e='🌟';t='Excellent!';u='Great job!';}else if(pct>=0.6){e='👍';t='Good!';u='Keep going!';}else{e='💪';t='Keep Learning!';u='Try again!';}
-        $('#res-emoji').textContent=e; $('#res-title').textContent=t; $('#res-subtitle').textContent=u;
-        $('#results-list').innerHTML=q.history.map((h,i)=>`<div class="result-item"><span class="result-num">${i+1}</span><span class="result-name">${h.q.disp}</span><span class="result-time">${h.click===null?'⏰':h.time+'s'}</span><span class="result-icon">${h.ok?'✅':'❌'}</span></div>`).join('');
-        if(pct>=0.8)confetti();
+        const q = ST.quiz;
+        q.active = false;
+        clearInterval(q.timer);
+        resetHL();
+
+        const s = ST.stats;
+        s.quizzes++;
+        s.totalCorrect += q.score;
+        if (q.score > s.bestScore) s.bestScore = q.score;
+        if (q.bestStreak > s.bestStreak) s.bestStreak = q.bestStreak;
+        saveStats();
+
+        // Exit quiz mode and show results
+        exitQuizMode();
+        $('#quiz-float').classList.remove('active');
+        $('#quiz-results').style.display = '';
+        setSheetState('expanded');
+
+        $('#res-score').textContent = q.score;
+        $('#res-total').textContent = '/' + q.questions.length;
+
+        const avgTime = q.history.length ? Math.round(q.history.reduce((a, h) => a + h.time, 0) / q.history.length * 10) / 10 : 0;
+        $('#res-time').textContent = avgTime + 's';
+        $('#res-streak').textContent = q.bestStreak;
+        $('#res-accuracy').textContent = Math.round(q.score / q.questions.length * 100) + '%';
+
+        const pct = q.score / q.questions.length;
+        let emoji, title, subtitle;
+        if (pct === 1) { emoji = '🏆'; title = 'Perfect!'; subtitle = 'Flawless victory!'; }
+        else if (pct >= 0.8) { emoji = '🌟'; title = 'Excellent!'; subtitle = 'You know India well!'; }
+        else if (pct >= 0.6) { emoji = '👍'; title = 'Good Job!'; subtitle = 'Keep practicing!'; }
+        else { emoji = '💪'; title = 'Keep Learning!'; subtitle = 'Try learn mode.'; }
+
+        $('#res-emoji').textContent = emoji;
+        $('#res-title').textContent = title;
+        $('#res-subtitle').textContent = subtitle;
+
+        $('#results-list').innerHTML = q.history.map((h, i) => `
+          <div class="result-item">
+            <span class="result-num">${i + 1}</span>
+            <span class="result-name">${h.q.disp}</span>
+            <span class="result-time">${h.click === null ? '⏰' : h.time + 's'}</span>
+            <span class="result-icon">${h.ok ? '✅' : '❌'}</span>
+          </div>
+        `).join('');
+
+        if (pct >= 0.8) confetti();
       }
 
-      function endQuiz() { ST.quiz.active=false; if(ST.quiz.timer)clearInterval(ST.quiz.timer); $('#quiz-float').classList.remove('active'); resetHL(); }
+      function endQuiz() {
+        ST.quiz.active = false;
+        if (ST.quiz.timer) clearInterval(ST.quiz.timer);
+        $('#quiz-float').classList.remove('active');
+        resetHL();
+      }
 
-      function startTimer(diff) { const q=ST.quiz; q.timeLeft=diff.timer; updTimer(diff); q.timer=setInterval(()=>{q.timeLeft--;updTimer(diff);if(q.timeLeft<=0){clearInterval(q.timer);handleTimeout();}},1000); }
-      function updTimer(diff) { const t=ST.quiz.timeLeft, pct=(t/diff.timer)*100, f=$('#timer-fill'); f.style.width=pct+'%'; f.style.backgroundColor=t>diff.timer*0.5?'var(--success)':t>diff.timer*0.3?'var(--warning)':'var(--danger)'; }
+      // ═══════ TIMER ═══════
+      function startTimer(diff) {
+        const q = ST.quiz;
+        q.timeLeft = diff.timer;
+        updateTimerUI(diff);
 
-      function hl(id,c) { const el=document.getElementById(id); if(el)el.classList.add(c); const m=document.getElementById(id+'_marker'); if(m)m.classList.add(c); }
-      function resetHL() { $$('.geo-path').forEach(e=>e.classList.remove('selected','correct','wrong','dimmed','hint-glow')); $$('.geo-marker').forEach(e=>e.classList.remove('selected','correct','wrong','hint-glow')); }
-      function renderDots() { const c=$('#progress-dots'); c.innerHTML=''; for(let i=0;i<ST.quiz.questions.length;i++){const d=document.createElement('span');d.className='progress-dot';d.id='dot-'+i;c.appendChild(d);} }
-      function setDot(i,s) { const d=document.getElementById('dot-'+i); if(d)d.className='progress-dot '+s; }
+        q.timer = setInterval(() => {
+          q.timeLeft--;
+          updateTimerUI(diff);
+          if (q.timeLeft <= 0) {
+            clearInterval(q.timer);
+            handleTimeout();
+          }
+        }, 1000);
+      }
 
-      function toast(msg,type='info') { const c=$('#toast-container'), t=document.createElement('div'); t.className=`toast toast-${type}`; t.textContent=msg; c.appendChild(t); setTimeout(()=>t.remove(),2000); }
+      function updateTimerUI(diff) {
+        const t = ST.quiz.timeLeft;
+        const pct = (t / diff.timer) * 100;
+        const fill = $('#timer-fill');
+        fill.style.width = pct + '%';
+        fill.style.backgroundColor = t > diff.timer * 0.5 ? 'var(--success)' : t > diff.timer * 0.3 ? 'var(--warning)' : 'var(--danger)';
+      }
 
+      // ═══════ UI HELPERS ═══════
+      function hl(id, cls) {
+        const el = document.getElementById(id);
+        if (el) el.classList.add(cls);
+        const m = document.getElementById(id + '_marker');
+        if (m) m.classList.add(cls);
+      }
+
+      function resetHL() {
+        $$('.geo-path').forEach(e => e.classList.remove('selected', 'correct', 'wrong', 'dimmed', 'hint-glow'));
+        $$('.geo-marker').forEach(e => e.classList.remove('selected', 'correct', 'wrong', 'hint-glow'));
+      }
+
+      function renderDots() {
+        const c = $('#progress-dots');
+        c.innerHTML = '';
+        for (let i = 0; i < ST.quiz.questions.length; i++) {
+          const d = document.createElement('span');
+          d.className = 'progress-dot';
+          d.id = 'dot-' + i;
+          c.appendChild(d);
+        }
+      }
+
+      function setDot(i, state) {
+        const d = document.getElementById('dot-' + i);
+        if (d) d.className = 'progress-dot ' + state;
+      }
+
+      // ═══════ TOAST ═══════
+      function toast(msg, type = 'info') {
+        const container = $('#toast-container');
+        const t = document.createElement('div');
+        t.className = `toast toast-${type}`;
+        t.textContent = msg;
+        container.appendChild(t);
+        setTimeout(() => t.remove(), 2000);
+      }
+
+      // ═══════ STATS ═══════
       function renderStats() {
-        const s=ST.stats;
-        $('#stat-quizzes').textContent=s.quizzes; $('#stat-correct').textContent=s.totalCorrect; $('#stat-best').textContent=s.bestScore; $('#stat-streak').textContent=s.bestStreak;
-        const m=Object.values(s.stateMastery).filter(v=>v>=3).length, pct=Math.round(m/STATES.length*100);
-        $('#mastery-fill').style.width=pct+'%'; $('#mastery-count').textContent=`${m}/${STATES.length} mastered`; $('#mastery-pct').textContent=pct+'%';
-        $('#achievements-list').innerHTML=ACHIEVEMENTS.map(a=>{const u=a.check(s);return`<div class="achievement-item ${u?'unlocked':'locked'}"><span class="achievement-icon">${a.icon}</span><div><div class="achievement-name">${a.name}</div><div class="achievement-desc">${a.desc}</div></div>${u?'<span class="achievement-check">✓</span>':''}</div>`;}).join('');
+        const s = ST.stats;
+        $('#stat-quizzes').textContent = s.quizzes;
+        $('#stat-correct').textContent = s.totalCorrect;
+        $('#stat-best').textContent = s.bestScore;
+        $('#stat-streak').textContent = s.bestStreak;
+
+        const mastered = Object.values(s.stateMastery).filter(v => v >= 3).length;
+        const pct = Math.round(mastered / STATES.length * 100);
+        $('#mastery-fill').style.width = pct + '%';
+        $('#mastery-count').textContent = `${mastered}/${STATES.length} mastered`;
+        $('#mastery-pct').textContent = pct + '%';
+
+        $('#achievements-list').innerHTML = ACHIEVEMENTS.map(a => {
+          const u = a.check(s);
+          return `
+            <div class="achievement-item ${u ? 'unlocked' : 'locked'}">
+              <span class="achievement-icon">${a.icon}</span>
+              <div>
+                <div class="achievement-name">${a.name}</div>
+                <div class="achievement-desc">${a.desc}</div>
+              </div>
+              ${u ? '<span class="achievement-check">✓</span>' : ''}
+            </div>
+          `;
+        }).join('');
       }
 
-      function loadStats() { try{const d=JSON.parse(localStorage.getItem(CFG.STATS_KEY));if(d)ST.stats=d;}catch(e){} }
-      function saveStats() { try{localStorage.setItem(CFG.STATS_KEY,JSON.stringify(ST.stats));}catch(e){} }
-      function clearStats() { if(!confirm('Clear progress?'))return; ST.stats={quizzes:0,totalCorrect:0,bestScore:0,bestStreak:0,stateMastery:{},history:[]}; saveStats(); renderStats(); toast('Cleared','info'); }
+      // ═══════ PERSISTENCE ═══════
+      function loadStats() {
+        try {
+          const d = JSON.parse(localStorage.getItem(CFG.STATS_KEY));
+          if (d) ST.stats = d;
+        } catch (e) { }
+      }
 
-      function toggleDark() { ST.dark=!ST.dark; document.documentElement.classList.toggle('dark',ST.dark); $('#theme-fab').textContent=ST.dark?'☀️':'🌙'; localStorage.setItem(CFG.DARK_KEY,ST.dark); }
+      function saveStats() {
+        try {
+          localStorage.setItem(CFG.STATS_KEY, JSON.stringify(ST.stats));
+        } catch (e) { }
+      }
 
-      function confetti() { const cols=['#ef4444','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899']; for(let i=0;i<50;i++){const el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.backgroundColor=cols[~~(Math.random()*cols.length)];el.style.animationDuration=(Math.random()*2+1.5)+'s';el.style.animationDelay=Math.random()*0.5+'s';el.style.width=(Math.random()*10+6)+'px';el.style.height=(Math.random()*10+6)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4000);} }
+      function clearStats() {
+        if (!confirm('Clear all progress?')) return;
+        ST.stats = { quizzes: 0, totalCorrect: 0, bestScore: 0, bestStreak: 0, stateMastery: {}, history: [] };
+        saveStats();
+        renderStats();
+        toast('Progress cleared', 'info');
+      }
 
+      // ═══════ DARK MODE ═══════
+      function toggleDark() {
+        ST.dark = !ST.dark;
+        document.documentElement.classList.toggle('dark', ST.dark);
+        $('#theme-fab').textContent = ST.dark ? '☀️' : '🌙';
+        localStorage.setItem(CFG.DARK_KEY, ST.dark);
+      }
+
+      // ═══════ CONFETTI ═══════
+      function confetti() {
+        const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+        for (let i = 0; i < 50; i++) {
+          const el = document.createElement('div');
+          el.className = 'confetti';
+          el.style.left = Math.random() * 100 + 'vw';
+          el.style.backgroundColor = colors[~~(Math.random() * colors.length)];
+          el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+          el.style.animationDelay = Math.random() * 0.5 + 's';
+          el.style.width = (Math.random() * 10 + 6) + 'px';
+          el.style.height = (Math.random() * 10 + 6) + 'px';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 4000);
+        }
+      }
+
+      // ═══════ BOOT ═══════
       document.addEventListener('DOMContentLoaded', init);
 
-      return { switchMode, startQuiz, restartQuiz, exitQuiz, useHint, toggleDark, openSearch, closeSearch, selectFromSearch, clearStats, collapseSheet, zoomIn, zoomOut, resetZoom };
+      return {
+        switchMode,
+        startQuiz,
+        restartQuiz,
+        exitQuiz,
+        useHint,
+        toggleDark,
+        openSearch,
+        closeSearch,
+        selectFromSearch,
+        clearStats,
+        collapseSheet,
+        zoomIn,
+        zoomOut,
+        resetZoom
+      };
     })();
   </script>
 </body>
