@@ -4,11 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <meta name="theme-color" content="#4f46e5">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>India Explorer</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🇮🇳</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🇮🇳</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -49,6 +48,9 @@
       --bottom-nav-height: 64px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-top: env(safe-area-inset-top, 0px);
+      --sheet-collapsed: 90px;
+      --sheet-half: 50vh;
+      --sheet-full: calc(100vh - var(--bottom-nav-height) - var(--safe-bottom) - var(--safe-top) - 20px);
     }
 
     html.dark {
@@ -82,7 +84,6 @@
       height: 100%; 
       overflow: hidden; 
       overscroll-behavior: none;
-      touch-action: manipulation;
     }
     
     body {
@@ -102,6 +103,7 @@
       flex-direction: column;
       padding-top: var(--safe-top);
       padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom));
+      position: relative;
     }
 
     /* ═══════ MAP CONTAINER ═══════ */
@@ -129,7 +131,7 @@
       max-height: 100%;
       object-fit: contain;
       transform-origin: center center;
-      transition: transform 0.1s ease-out;
+      transition: transform 0.15s ease-out;
     }
 
     /* ═══════ MAP PATHS ═══════ */
@@ -186,8 +188,8 @@
     /* ═══════ FLOATING ELEMENTS ═══════ */
     .fab {
       position: absolute;
-      width: 56px;
-      height: 56px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: var(--accent);
       color: #fff;
@@ -195,7 +197,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
       box-shadow: 0 4px 12px rgba(79,70,229,0.4);
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -211,9 +213,6 @@
     #search-fab {
       top: 16px;
       right: 16px;
-      width: 48px;
-      height: 48px;
-      font-size: 20px;
     }
 
     #theme-fab {
@@ -234,8 +233,8 @@
       top: 0;
       left: 0;
       right: 0;
-      padding: 8px 16px;
-      padding-top: calc(8px + var(--safe-top));
+      padding: 12px 16px;
+      padding-top: calc(12px + var(--safe-top));
       z-index: 90;
       pointer-events: none;
       display: none;
@@ -244,17 +243,17 @@
     #quiz-float.active { display: block; }
 
     .quiz-timer-bar {
-      height: 4px;
+      height: 5px;
       background: var(--border);
-      border-radius: 2px;
+      border-radius: 3px;
       overflow: hidden;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .quiz-timer-fill {
       height: 100%;
       background: var(--success);
-      border-radius: 2px;
+      border-radius: 3px;
       transition: width 1s linear, background-color 0.3s;
     }
 
@@ -325,11 +324,11 @@
 
     /* ═══════ TOAST NOTIFICATIONS ═══════ */
     #toast-container {
-      position: absolute;
-      bottom: 100px;
+      position: fixed;
+      bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 100px);
       left: 16px;
       right: 16px;
-      z-index: 200;
+      z-index: 500;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -346,20 +345,9 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .toast-success {
-      background: var(--success);
-      color: #fff;
-    }
-
-    .toast-error {
-      background: var(--danger);
-      color: #fff;
-    }
-
-    .toast-info {
-      background: var(--accent);
-      color: #fff;
-    }
+    .toast-success { background: var(--success); color: #fff; }
+    .toast-error { background: var(--danger); color: #fff; }
+    .toast-info { background: var(--accent); color: #fff; }
 
     @keyframes toast-in {
       from { opacity: 0; transform: translateY(20px) scale(0.95); }
@@ -367,6 +355,21 @@
     }
 
     /* ═══════ BOTTOM SHEET ═══════ */
+    #bottom-sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 140;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    #bottom-sheet-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     #bottom-sheet {
       position: fixed;
       left: 0;
@@ -376,40 +379,55 @@
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       box-shadow: var(--shadow-lg);
       z-index: 150;
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      max-height: calc(100vh - var(--bottom-nav-height) - var(--safe-bottom) - var(--safe-top) - 60px);
+      max-height: var(--sheet-full);
       display: flex;
       flex-direction: column;
-      touch-action: none;
+      will-change: transform;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #bottom-sheet.no-transition {
+      transition: none !important;
     }
 
     #bottom-sheet.collapsed {
-      transform: translateY(calc(100% - 80px));
+      transform: translateY(calc(100% - var(--sheet-collapsed)));
     }
 
     #bottom-sheet.half {
-      transform: translateY(50%);
+      transform: translateY(calc(100% - var(--sheet-half)));
     }
 
     #bottom-sheet.expanded {
       transform: translateY(0);
     }
 
-    .sheet-handle {
-      padding: 12px;
-      display: flex;
-      justify-content: center;
+    .sheet-drag-area {
+      padding: 16px 16px 8px;
       cursor: grab;
+      touch-action: none;
       flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .sheet-handle::before {
-      content: '';
-      width: 40px;
+    .sheet-drag-area:active {
+      cursor: grabbing;
+    }
+
+    .sheet-handle {
+      width: 48px;
       height: 5px;
       background: var(--border);
       border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    .sheet-drag-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     .sheet-header {
@@ -431,6 +449,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .sheet-content {
@@ -637,7 +656,7 @@
     }
 
     .nav-item.active .nav-icon {
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     /* ═══════ SEARCH OVERLAY ═══════ */
@@ -673,6 +692,7 @@
       font-size: 24px;
       cursor: pointer;
       border-radius: 50%;
+      color: var(--text-heading);
     }
 
     .search-back:active { background: var(--bg-card-alt); }
@@ -690,7 +710,6 @@
     }
 
     .search-input:focus { border-color: var(--accent); }
-
     .search-input::placeholder { color: var(--text-muted); }
 
     .search-results {
@@ -1078,22 +1097,7 @@
     .progress-dot.correct { background: var(--success); }
     .progress-dot.wrong { background: var(--danger); }
 
-    /* ═══════ STREAK BADGE ═══════ */
-    .streak-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 14px;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      color: #fff;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 700;
-      box-shadow: 0 2px 8px rgba(245,158,11,0.4);
-      margin-top: 12px;
-    }
-
-    /* ═══════ LONG PRESS TOOLTIP ═══════ */
+    /* ═══════ QUICK TIP ═══════ */
     #quick-tip {
       position: fixed;
       padding: 10px 16px;
@@ -1115,14 +1119,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* ═══════ HAPTIC SIMULATION ═══════ */
-    @keyframes haptic {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(0.98); }
-    }
-
-    .haptic { animation: haptic 0.1s ease; }
   </style>
 </head>
 <body>
@@ -1132,7 +1128,7 @@
     <section id="map-section">
       <div id="map-container">
         
-       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--********* Copyright (c) 2024 Pareto Softare, LLC DBA Simplemaps.com ***************************************
 ************* Free for Commercial Use, full terms at  https://simplemaps.com/resources/svg-license ************
 ************* Attribution is appreciated! https://simplemaps.com *******************************************-->
@@ -1664,9 +1660,15 @@
       <div id="toast-container"></div>
     </section>
 
+    <!-- BOTTOM SHEET OVERLAY -->
+    <div id="bottom-sheet-overlay" onclick="App.collapseSheet()"></div>
+
     <!-- BOTTOM SHEET -->
     <div id="bottom-sheet" class="collapsed">
-      <div class="sheet-handle" id="sheet-handle"></div>
+      <div class="sheet-drag-area" id="sheet-drag-area">
+        <div class="sheet-handle"></div>
+        <div class="sheet-drag-hint" id="sheet-hint">Swipe up to explore</div>
+      </div>
       
       <!-- Learn content -->
       <div id="learn-content">
@@ -1872,6 +1874,8 @@
         FEEDBACK_MS: 1500,
         LONG_PRESS_MS: 500,
         MARKER_HIT_EXTRA: 25,
+        SWIPE_THRESHOLD: 50,
+        VELOCITY_THRESHOLD: 0.3,
         DIFFICULTIES: {
           easy: { timer: 15, hints: 3, types: ['name'] },
           medium: { timer: 10, hints: 1, types: ['name', 'capital', 'sea', 'country', 'neighbor'] },
@@ -1975,14 +1979,19 @@
         selected: null,
         dark: false,
         zoom: 1,
-        panX: 0,
-        panY: 0,
         difficulty: 'medium',
         qCount: 10,
         hintsLeft: 1,
         quiz: { active: false, questions: [], idx: 0, score: 0, timer: null, timeLeft: 10, answered: false, history: [], streak: 0, bestStreak: 0 },
         stats: { quizzes: 0, totalCorrect: 0, bestScore: 0, bestStreak: 0, stateMastery: {}, history: [] },
-        sheet: { state: 'collapsed', startY: 0, currentY: 0 }
+        sheet: { 
+          state: 'collapsed', 
+          isDragging: false, 
+          startY: 0, 
+          startTranslate: 0, 
+          currentTranslate: 0,
+          startTime: 0
+        }
       };
 
       // ═══════ DOM ═══════
@@ -2059,15 +2068,16 @@
 
         ST.matchedIds = done;
 
-        // Touch events
+        // Touch events for map
         let lastTap = 0;
         let longPressTimer = null;
         let touchStartPos = null;
 
         svg.addEventListener('touchstart', e => {
+          const touch = e.touches[0];
           const id = idFromEl(e.target);
           if (id) {
-            touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            touchStartPos = { x: touch.clientX, y: touch.clientY };
             longPressTimer = setTimeout(() => {
               showQuickTip(id, touchStartPos.x, touchStartPos.y);
               vibrate();
@@ -2075,13 +2085,19 @@
           }
         }, { passive: true });
 
-        svg.addEventListener('touchmove', () => {
-          if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+        svg.addEventListener('touchmove', e => {
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
           hideQuickTip();
         }, { passive: true });
 
         svg.addEventListener('touchend', e => {
-          if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
           hideQuickTip();
 
           const id = idFromEl(e.target);
@@ -2089,7 +2105,6 @@
 
           const now = Date.now();
           if (now - lastTap < 300) {
-            // Double tap - zoom to state
             zoomToState(id);
           } else {
             handleClick(id);
@@ -2181,11 +2196,6 @@
         vibrate();
       }
 
-      function resetZoom() {
-        ST.zoom = 1;
-        applyZoom();
-      }
-
       // ═══════ HAPTIC ═══════
       function vibrate() {
         if (navigator.vibrate) navigator.vibrate(10);
@@ -2197,8 +2207,8 @@
         if (!s) return;
         const tip = $('#quick-tip');
         tip.textContent = `${s.name} • ${s.capital}`;
-        tip.style.left = `${Math.min(x, window.innerWidth - 150)}px`;
-        tip.style.top = `${y - 50}px`;
+        tip.style.left = `${Math.min(x, window.innerWidth - 180)}px`;
+        tip.style.top = `${y - 60}px`;
         tip.classList.add('visible');
       }
 
@@ -2232,7 +2242,6 @@
         const zoneColor = ZONE_COLORS[s.zone] || '#666';
         $('#info-zone').innerHTML = `<span class="badge-zone" style="background:${zoneColor}20;color:${zoneColor}">${s.zone}</span>`;
 
-        // Basic tab
         $('#tab-basic').innerHTML = `
           <div class="info-item"><span class="info-icon">🏛️</span><div><div class="info-label">Capital</div><div class="info-value">${s.capital}</div></div></div>
           <div class="info-item"><span class="info-icon">🗣️</span><div><div class="info-label">Language</div><div class="info-value">${s.language || '—'}</div></div></div>
@@ -2241,7 +2250,6 @@
           <div class="info-item"><span class="info-icon">📖</span><div><div class="info-label">Literacy</div><div class="info-value">${s.literacy ? s.literacy + '%' : '—'}</div></div></div>
         `;
 
-        // Nature tab
         $('#tab-nature').innerHTML = `
           <div class="info-item"><span class="info-icon">🐾</span><div><div class="info-label">State Animal</div><div class="info-value">${s.animal || '—'}</div></div></div>
           <div class="info-item"><span class="info-icon">🐦</span><div><div class="info-label">State Bird</div><div class="info-value">${s.bird || '—'}</div></div></div>
@@ -2249,7 +2257,6 @@
           <div class="info-item"><span class="info-icon">🏞️</span><div><div class="info-label">Major River</div><div class="info-value">${s.river || '—'}</div></div></div>
         `;
 
-        // More tab
         const neighborsHTML = (s.neighbors || []).map(nid => {
           const n = M[nid];
           return n ? `<span class="neighbor-chip" onclick="App.selectFromSearch('${nid}')">${n.name}</span>` : '';
@@ -2261,7 +2268,6 @@
           ${neighborsHTML ? `<div class="neighbors"><div class="neighbors-title">🤝 Neighbors</div><div class="neighbors-list">${neighborsHTML}</div></div>` : ''}
         `;
 
-        // Reset tabs
         $$('.info-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
         $('#tab-basic').style.display = '';
         $('#tab-nature').style.display = 'none';
@@ -2283,66 +2289,180 @@
         });
       }
 
-      // ═══════ BOTTOM SHEET ═══════
+      // ═══════ BOTTOM SHEET - FIXED SWIPE ═══════
       function bindSheet() {
         const sheet = $('#bottom-sheet');
-        const handle = $('#sheet-handle');
+        const dragArea = $('#sheet-drag-area');
+        const overlay = $('#bottom-sheet-overlay');
+        
         let startY = 0;
-        let startState = '';
+        let startTranslateY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        let startTime = 0;
 
-        handle.addEventListener('touchstart', e => {
+        function getSheetTranslate() {
+          const transform = window.getComputedStyle(sheet).transform;
+          if (transform === 'none') return 0;
+          const matrix = new DOMMatrix(transform);
+          return matrix.m42;
+        }
+
+        function getMaxTranslate() {
+          return sheet.offsetHeight - 90; // collapsed height
+        }
+
+        function getHalfTranslate() {
+          return sheet.offsetHeight - (window.innerHeight * 0.5);
+        }
+
+        // Touch Start
+        dragArea.addEventListener('touchstart', e => {
+          isDragging = true;
           startY = e.touches[0].clientY;
-          startState = ST.sheet.state;
-          sheet.style.transition = 'none';
-        }, { passive: true });
-
-        handle.addEventListener('touchmove', e => {
-          const deltaY = e.touches[0].clientY - startY;
-          const sheetHeight = sheet.offsetHeight;
-
-          if (startState === 'collapsed') {
-            const progress = Math.min(Math.max(-deltaY / (sheetHeight * 0.5), 0), 1);
-            sheet.style.transform = `translateY(calc(100% - 80px - ${progress * (sheetHeight * 0.5)}px))`;
-          } else if (startState === 'half') {
-            if (deltaY > 0) {
-              sheet.style.transform = `translateY(calc(50% + ${deltaY}px))`;
+          startTime = Date.now();
+          
+          // Get current translate value
+          sheet.classList.add('no-transition');
+          const computedStyle = window.getComputedStyle(sheet);
+          const transform = computedStyle.transform;
+          
+          if (transform && transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            startTranslateY = matrix.m42;
+          } else {
+            // Calculate based on current state
+            const sheetHeight = sheet.offsetHeight;
+            if (ST.sheet.state === 'collapsed') {
+              startTranslateY = sheetHeight - 90;
+            } else if (ST.sheet.state === 'half') {
+              startTranslateY = sheetHeight - (window.innerHeight * 0.5);
             } else {
-              const progress = Math.min(-deltaY / (sheetHeight * 0.5), 1);
-              sheet.style.transform = `translateY(calc(50% - ${progress * 50}%))`;
-            }
-          } else if (startState === 'expanded') {
-            if (deltaY > 0) {
-              sheet.style.transform = `translateY(${deltaY}px)`;
+              startTranslateY = 0;
             }
           }
         }, { passive: true });
 
-        handle.addEventListener('touchend', e => {
-          sheet.style.transition = '';
-          const deltaY = e.changedTouches[0].clientY - startY;
+        // Touch Move
+        dragArea.addEventListener('touchmove', e => {
+          if (!isDragging) return;
+          
+          currentY = e.touches[0].clientY;
+          const deltaY = currentY - startY;
+          let newTranslate = startTranslateY + deltaY;
+          
+          // Clamp values
+          const maxTranslate = getMaxTranslate();
+          newTranslate = Math.max(0, Math.min(maxTranslate, newTranslate));
+          
+          sheet.style.transform = `translateY(${newTranslate}px)`;
+        }, { passive: true });
 
-          if (Math.abs(deltaY) < 30) {
-            setSheetState(startState);
-            return;
+        // Touch End
+        dragArea.addEventListener('touchend', e => {
+          if (!isDragging) return;
+          isDragging = false;
+          
+          sheet.classList.remove('no-transition');
+          
+          const endY = e.changedTouches[0].clientY;
+          const deltaY = endY - startY;
+          const timeDiff = Date.now() - startTime;
+          const velocity = Math.abs(deltaY) / timeDiff;
+          
+          const sheetHeight = sheet.offsetHeight;
+          const maxTranslate = getMaxTranslate();
+          const halfTranslate = getHalfTranslate();
+          
+          // Calculate current position
+          let currentTranslate = startTranslateY + deltaY;
+          currentTranslate = Math.max(0, Math.min(maxTranslate, currentTranslate));
+          
+          // Determine target state based on velocity and position
+          let targetState;
+          
+          if (velocity > CFG.VELOCITY_THRESHOLD) {
+            // Fast swipe - use direction
+            if (deltaY < 0) {
+              // Swiping up
+              if (ST.sheet.state === 'collapsed') {
+                targetState = 'half';
+              } else if (ST.sheet.state === 'half') {
+                targetState = 'expanded';
+              } else {
+                targetState = 'expanded';
+              }
+            } else {
+              // Swiping down
+              if (ST.sheet.state === 'expanded') {
+                targetState = 'half';
+              } else if (ST.sheet.state === 'half') {
+                targetState = 'collapsed';
+              } else {
+                targetState = 'collapsed';
+              }
+            }
+          } else {
+            // Slow drag - use position thresholds
+            const expandedThreshold = sheetHeight * 0.25;
+            const halfThreshold = sheetHeight * 0.6;
+            
+            if (currentTranslate < expandedThreshold) {
+              targetState = 'expanded';
+            } else if (currentTranslate < halfThreshold) {
+              targetState = 'half';
+            } else {
+              targetState = 'collapsed';
+            }
           }
+          
+          setSheetState(targetState);
+        }, { passive: true });
 
-          if (startState === 'collapsed' && deltaY < -50) {
-            setSheetState('half');
-          } else if (startState === 'half') {
-            if (deltaY > 50) setSheetState('collapsed');
-            else if (deltaY < -50) setSheetState('expanded');
-            else setSheetState('half');
-          } else if (startState === 'expanded') {
-            if (deltaY > 50) setSheetState('half');
-            else setSheetState('expanded');
-          }
+        // Touch Cancel
+        dragArea.addEventListener('touchcancel', () => {
+          isDragging = false;
+          sheet.classList.remove('no-transition');
+          setSheetState(ST.sheet.state);
         }, { passive: true });
       }
 
       function setSheetState(state) {
         const sheet = $('#bottom-sheet');
-        sheet.className = state;
+        const overlay = $('#bottom-sheet-overlay');
+        const hint = $('#sheet-hint');
+        
+        // Remove all state classes
+        sheet.classList.remove('collapsed', 'half', 'expanded', 'no-transition');
+        
+        // Reset inline transform
+        sheet.style.transform = '';
+        
+        // Add new state class
+        sheet.classList.add(state);
         ST.sheet.state = state;
+        
+        // Update overlay
+        if (state === 'expanded') {
+          overlay.classList.add('visible');
+        } else {
+          overlay.classList.remove('visible');
+        }
+        
+        // Update hint text
+        if (hint) {
+          if (state === 'collapsed') {
+            hint.textContent = 'Swipe up to explore';
+          } else if (state === 'half') {
+            hint.textContent = 'Swipe up for more';
+          } else {
+            hint.textContent = 'Swipe down to minimize';
+          }
+        }
+      }
+
+      function collapseSheet() {
+        setSheetState('collapsed');
       }
 
       // ═══════ SEARCH ═══════
@@ -2471,6 +2591,7 @@
       function restartQuiz() {
         $('#quiz-results').style.display = 'none';
         $('#quiz-setup').style.display = '';
+        setSheetState('expanded');
       }
 
       function genQuestions(diff) {
@@ -2891,7 +3012,8 @@
         openSearch,
         closeSearch,
         selectFromSearch,
-        clearStats
+        clearStats,
+        collapseSheet
       };
     })();
   </script>
