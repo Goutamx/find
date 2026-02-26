@@ -104,6 +104,11 @@
       padding-top: var(--safe-top);
       padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom));
       position: relative;
+      transition: padding-bottom 0.3s;
+    }
+
+    #app.quiz-active {
+      padding-bottom: 0;
     }
 
     /* ═══════ MAP CONTAINER ═══════ */
@@ -188,8 +193,8 @@
     /* ═══════ FLOATING ELEMENTS ═══════ */
     .fab {
       position: absolute;
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--accent);
       color: #fff;
@@ -197,10 +202,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
       box-shadow: 0 4px 12px rgba(79,70,229,0.4);
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
       z-index: 100;
       -webkit-tap-highlight-color: transparent;
     }
@@ -208,6 +213,11 @@
     .fab:active {
       transform: scale(0.92);
       box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+    }
+
+    .fab.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     #search-fab {
@@ -218,8 +228,8 @@
     #theme-fab {
       top: 16px;
       left: 16px;
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       font-size: 18px;
       background: var(--bg-card);
       color: var(--text-heading);
@@ -227,14 +237,59 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* ═══════ QUIZ FLOATING CARD ═══════ */
+    /* ═══════ ZOOM CONTROLS ═══════ */
+    .zoom-controls {
+      position: absolute;
+      bottom: 20px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+      transition: bottom 0.3s, opacity 0.3s;
+    }
+
+    .quiz-active .zoom-controls {
+      bottom: 20px;
+    }
+
+    .zoom-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      color: var(--text-heading);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .zoom-btn:active {
+      transform: scale(0.92);
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .zoom-btn.reset {
+      font-size: 16px;
+    }
+
+    /* ═══════ QUIZ FLOATING CARD - COMPACT ═══════ */
     #quiz-float {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      padding: 12px 16px;
-      padding-top: calc(12px + var(--safe-top));
+      padding: 10px 12px;
+      padding-top: calc(10px + var(--safe-top));
       z-index: 90;
       pointer-events: none;
       display: none;
@@ -243,24 +298,24 @@
     #quiz-float.active { display: block; }
 
     .quiz-timer-bar {
-      height: 5px;
+      height: 4px;
       background: var(--border);
-      border-radius: 3px;
+      border-radius: 2px;
       overflow: hidden;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .quiz-timer-fill {
       height: 100%;
       background: var(--success);
-      border-radius: 3px;
+      border-radius: 2px;
       transition: width 1s linear, background-color 0.3s;
     }
 
     .quiz-card {
       background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 16px;
+      border-radius: 14px;
+      padding: 12px 16px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       pointer-events: auto;
     }
@@ -269,11 +324,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .quiz-progress {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -283,15 +338,15 @@
     .quiz-score {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 14px;
+      gap: 6px;
+      font-size: 13px;
       font-weight: 700;
     }
 
-    .quiz-score-value { color: var(--accent); font-size: 18px; }
+    .quiz-score-value { color: var(--accent); font-size: 16px; }
 
     .quiz-question {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-heading);
       text-align: center;
@@ -300,20 +355,22 @@
 
     .quiz-question strong { color: var(--accent); font-weight: 800; }
 
-    .quiz-actions {
+    .quiz-footer {
       display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
     }
 
     .quiz-hint-btn {
-      padding: 10px 20px;
-      border-radius: 12px;
+      padding: 8px 14px;
+      border-radius: 10px;
       background: var(--warning-light);
       color: var(--warning);
-      border: 2px solid var(--warning);
-      font-size: 14px;
+      border: 1.5px solid var(--warning);
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
@@ -322,10 +379,43 @@
 
     .quiz-hint-btn:disabled { opacity: 0.4; }
 
+    .quiz-exit-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: var(--danger-light);
+      color: var(--danger);
+      border: 1.5px solid var(--danger);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    /* ═══════ PROGRESS DOTS - COMPACT ═══════ */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .progress-dot.current { background: var(--accent); }
+    .progress-dot.correct { background: var(--success); }
+    .progress-dot.wrong { background: var(--danger); }
+
     /* ═══════ TOAST NOTIFICATIONS ═══════ */
     #toast-container {
       position: fixed;
-      bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 100px);
+      bottom: 100px;
       left: 16px;
       right: 16px;
       z-index: 500;
@@ -333,12 +423,17 @@
       flex-direction: column;
       gap: 8px;
       pointer-events: none;
+      transition: bottom 0.3s;
+    }
+
+    .quiz-active #toast-container {
+      bottom: 30px;
     }
 
     .toast {
-      padding: 14px 20px;
-      border-radius: var(--radius);
-      font-size: 15px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 14px;
       font-weight: 600;
       text-align: center;
       animation: toast-in 0.3s ease-out;
@@ -354,7 +449,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* ═══════ BOTTOM SHEET ═══════ */
+    /* ═══════ BOTTOM SHEET OVERLAY ═══════ */
     #bottom-sheet-overlay {
       position: fixed;
       inset: 0;
@@ -370,6 +465,7 @@
       pointer-events: auto;
     }
 
+    /* ═══════ BOTTOM SHEET ═══════ */
     #bottom-sheet {
       position: fixed;
       left: 0;
@@ -383,7 +479,7 @@
       display: flex;
       flex-direction: column;
       will-change: transform;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
     }
 
     #bottom-sheet.no-transition {
@@ -402,8 +498,14 @@
       transform: translateY(0);
     }
 
+    #bottom-sheet.hidden-sheet {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .sheet-drag-area {
-      padding: 16px 16px 8px;
+      padding: 14px 16px 8px;
       cursor: grab;
       touch-action: none;
       flex-shrink: 0;
@@ -421,30 +523,30 @@
       height: 5px;
       background: var(--border);
       border-radius: 3px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .sheet-drag-hint {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       font-weight: 500;
     }
 
     .sheet-header {
-      padding: 0 20px 16px;
+      padding: 0 20px 14px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
 
     .sheet-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text-heading);
       margin-bottom: 4px;
     }
 
     .sheet-subtitle {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       display: flex;
       align-items: center;
@@ -460,7 +562,7 @@
     }
 
     .sheet-body {
-      padding: 16px 20px;
+      padding: 14px 18px;
     }
 
     /* ═══════ INFO TABS ═══════ */
@@ -470,16 +572,16 @@
       padding: 4px;
       background: var(--bg-card-alt);
       border-radius: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .info-tab {
       flex: 1;
-      padding: 12px 8px;
+      padding: 10px 6px;
       border: none;
       background: transparent;
       border-radius: 10px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
@@ -488,7 +590,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .info-tab.active {
@@ -497,39 +599,39 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .info-tab-icon { font-size: 18px; }
+    .info-tab-icon { font-size: 16px; }
 
     /* ═══════ INFO ROWS ═══════ */
     .info-grid {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
     .info-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 12px;
+      gap: 10px;
+      padding: 10px;
       background: var(--bg-card-alt);
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .info-icon {
-      font-size: 24px;
+      font-size: 20px;
       flex-shrink: 0;
     }
 
     .info-label {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
       font-weight: 600;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
 
     .info-value {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-heading);
     }
@@ -538,9 +640,9 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 16px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -550,57 +652,57 @@
     .badge-ut { background: var(--warning-light); color: var(--warning); }
 
     .badge-zone {
-      padding: 4px 10px;
-      border-radius: 16px;
-      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 10px;
     }
 
     /* ═══════ FUN FACT ═══════ */
     .fun-fact {
       background: linear-gradient(135deg, var(--accent-light), var(--warning-light));
-      border-radius: 12px;
-      padding: 14px;
-      margin-top: 16px;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 14px;
     }
 
     .fun-fact-title {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--accent);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .fun-fact-text {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-heading);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     /* ═══════ NEIGHBOR CHIPS ═══════ */
     .neighbors {
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
     .neighbors-title {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       text-transform: uppercase;
     }
 
     .neighbors-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
 
     .neighbor-chip {
-      padding: 8px 14px;
+      padding: 6px 12px;
       background: var(--bg-card-alt);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      font-size: 13px;
+      border-radius: 16px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-heading);
       cursor: pointer;
@@ -625,6 +727,11 @@
       border-top: 1px solid var(--border);
       display: flex;
       z-index: 200;
+      transition: transform 0.3s;
+    }
+
+    #bottom-nav.hidden-nav {
+      transform: translateY(100%);
     }
 
     .nav-item {
@@ -633,12 +740,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 3px;
       padding: 8px;
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
@@ -651,12 +758,12 @@
     }
 
     .nav-icon {
-      font-size: 24px;
+      font-size: 22px;
       transition: transform 0.2s;
     }
 
     .nav-item.active .nav-icon {
-      transform: scale(1.15);
+      transform: scale(1.1);
     }
 
     /* ═══════ SEARCH OVERLAY ═══════ */
@@ -675,21 +782,21 @@
     .search-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
+      gap: 10px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--border);
       background: var(--bg-card);
     }
 
     .search-back {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
       border-radius: 50%;
       color: var(--text-heading);
@@ -699,10 +806,10 @@
 
     .search-input {
       flex: 1;
-      padding: 12px 16px;
+      padding: 10px 14px;
       background: var(--bg-card-alt);
       border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       font-size: 16px;
       font-family: inherit;
       color: var(--text-heading);
@@ -721,8 +828,8 @@
     .search-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
+      gap: 12px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
     }
@@ -730,8 +837,8 @@
     .search-item:active { background: var(--bg-card-alt); }
 
     .search-dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -741,54 +848,54 @@
 
     .search-name {
       flex: 1;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-heading);
     }
 
     .search-meta {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
     /* ═══════ QUIZ SETUP PANEL ═══════ */
     .panel-section {
-      padding: 20px;
+      padding: 18px;
     }
 
     .panel-title {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .panel-emoji { font-size: 48px; margin-bottom: 8px; }
+    .panel-emoji { font-size: 40px; margin-bottom: 6px; }
 
     .panel-heading {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--text-heading);
     }
 
     .section-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .difficulty-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .diff-btn {
-      padding: 16px 8px;
+      padding: 14px 6px;
       background: var(--bg-card-alt);
       border: 2px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       text-align: center;
       cursor: pointer;
       font-family: inherit;
@@ -802,23 +909,23 @@
 
     .diff-btn:active { transform: scale(0.96); }
 
-    .diff-icon { font-size: 28px; margin-bottom: 6px; }
-    .diff-name { font-size: 14px; font-weight: 700; color: var(--text-heading); }
-    .diff-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .diff-icon { font-size: 24px; margin-bottom: 4px; }
+    .diff-name { font-size: 13px; font-weight: 700; color: var(--text-heading); }
+    .diff-desc { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
     .count-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .count-btn {
-      padding: 14px;
+      padding: 12px;
       background: var(--bg-card-alt);
       border: 2px solid var(--border);
-      border-radius: 12px;
-      font-size: 16px;
+      border-radius: 10px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text-heading);
       cursor: pointer;
@@ -834,12 +941,12 @@
 
     .start-btn {
       width: 100%;
-      padding: 18px;
+      padding: 16px;
       background: var(--accent);
       color: #fff;
       border: none;
-      border-radius: 14px;
-      font-size: 18px;
+      border-radius: 12px;
+      font-size: 16px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
@@ -855,101 +962,101 @@
     /* ═══════ QUIZ RESULTS ═══════ */
     .results-header {
       text-align: center;
-      padding: 20px;
+      padding: 16px;
     }
 
-    .results-emoji { font-size: 64px; margin-bottom: 12px; }
-    .results-title { font-size: 24px; font-weight: 800; color: var(--text-heading); }
-    .results-subtitle { font-size: 15px; color: var(--text-muted); margin-top: 4px; }
+    .results-emoji { font-size: 56px; margin-bottom: 10px; }
+    .results-title { font-size: 22px; font-weight: 800; color: var(--text-heading); }
+    .results-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
 
     .score-circle {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      border: 6px solid var(--border);
+      border: 5px solid var(--border);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 20px auto;
+      margin: 16px auto;
       position: relative;
     }
 
     .score-circle::after {
       content: '';
       position: absolute;
-      inset: -6px;
+      inset: -5px;
       border-radius: 50%;
-      border: 6px solid transparent;
+      border: 5px solid transparent;
       border-top-color: var(--accent);
       border-right-color: var(--accent);
     }
 
-    .score-value { font-size: 36px; font-weight: 800; color: var(--accent); }
-    .score-total { font-size: 14px; color: var(--text-muted); font-weight: 600; }
+    .score-value { font-size: 32px; font-weight: 800; color: var(--accent); }
+    .score-total { font-size: 13px; color: var(--text-muted); font-weight: 600; }
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 0 20px;
-      margin-bottom: 20px;
+      gap: 8px;
+      padding: 0 16px;
+      margin-bottom: 16px;
     }
 
     .stat-box {
       background: var(--bg-card-alt);
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 10px;
+      padding: 12px;
       text-align: center;
     }
 
-    .stat-value { font-size: 20px; font-weight: 800; color: var(--text-heading); }
-    .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-top: 4px; }
+    .stat-value { font-size: 18px; font-weight: 800; color: var(--text-heading); }
+    .stat-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-top: 2px; }
 
     .results-list {
-      padding: 0 20px 20px;
-      max-height: 200px;
+      padding: 0 16px 16px;
+      max-height: 180px;
       overflow-y: auto;
     }
 
     .result-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 0;
+      gap: 8px;
+      padding: 8px 0;
       border-bottom: 1px solid var(--border);
     }
 
     .result-num {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--bg-card-alt);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .result-name { flex: 1; font-weight: 600; color: var(--text-heading); font-size: 14px; }
-    .result-time { font-size: 12px; color: var(--text-muted); }
-    .result-icon { font-size: 18px; }
+    .result-name { flex: 1; font-weight: 600; color: var(--text-heading); font-size: 13px; }
+    .result-time { font-size: 11px; color: var(--text-muted); }
+    .result-icon { font-size: 16px; }
 
     .results-actions {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 0 20px 20px;
+      gap: 8px;
+      padding: 0 16px 16px;
     }
 
     .action-btn {
-      padding: 14px;
-      border-radius: 12px;
+      padding: 12px;
+      border-radius: 10px;
       border: 2px solid var(--border);
       background: var(--bg-card-alt);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--text-heading);
       cursor: pointer;
@@ -970,52 +1077,52 @@
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
     .stats-card {
       background: var(--bg-card-alt);
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 14px;
       text-align: center;
     }
 
-    .stats-card-value { font-size: 28px; font-weight: 800; color: var(--text-heading); }
-    .stats-card-label { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+    .stats-card-value { font-size: 24px; font-weight: 800; color: var(--text-heading); }
+    .stats-card-label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
 
-    .mastery-section { margin-bottom: 24px; }
+    .mastery-section { margin-bottom: 20px; }
 
     .mastery-bar {
-      height: 10px;
+      height: 8px;
       background: var(--bg-card-alt);
-      border-radius: 5px;
+      border-radius: 4px;
       overflow: hidden;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .mastery-fill {
       height: 100%;
       background: var(--accent);
-      border-radius: 5px;
+      border-radius: 4px;
       transition: width 0.5s;
     }
 
     .mastery-text {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
     .achievement-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px;
+      gap: 12px;
+      padding: 12px;
       background: var(--bg-card-alt);
-      border-radius: 12px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      margin-bottom: 8px;
       border: 2px solid transparent;
     }
 
@@ -1026,40 +1133,40 @@
 
     .achievement-item.locked { opacity: 0.5; }
 
-    .achievement-icon { font-size: 32px; }
-    .achievement-name { font-size: 14px; font-weight: 700; color: var(--text-heading); }
-    .achievement-desc { font-size: 12px; color: var(--text-muted); }
+    .achievement-icon { font-size: 28px; }
+    .achievement-name { font-size: 13px; font-weight: 700; color: var(--text-heading); }
+    .achievement-desc { font-size: 11px; color: var(--text-muted); }
     .achievement-check { color: var(--warning); font-weight: 700; }
 
     .reset-btn {
       width: 100%;
-      padding: 14px;
+      padding: 12px;
       background: var(--danger-light);
       color: var(--danger);
       border: 2px solid var(--danger);
-      border-radius: 12px;
-      font-size: 14px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 16px;
     }
 
     /* ═══════ PLACEHOLDER ═══════ */
     .placeholder {
       text-align: center;
-      padding: 40px 20px;
+      padding: 30px 18px;
     }
 
-    .placeholder-emoji { font-size: 56px; margin-bottom: 12px; }
-    .placeholder-title { font-size: 18px; font-weight: 700; color: var(--text-heading); }
-    .placeholder-text { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
+    .placeholder-emoji { font-size: 48px; margin-bottom: 10px; }
+    .placeholder-title { font-size: 16px; font-weight: 700; color: var(--text-heading); }
+    .placeholder-text { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
     .badge-row {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
     /* ═══════ CONFETTI ═══════ */
@@ -1077,34 +1184,14 @@
       100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
 
-    /* ═══════ PROGRESS DOTS ═══════ */
-    .progress-dots {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
-    .progress-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--border);
-    }
-
-    .progress-dot.current { background: var(--accent); }
-    .progress-dot.correct { background: var(--success); }
-    .progress-dot.wrong { background: var(--danger); }
-
     /* ═══════ QUICK TIP ═══════ */
     #quick-tip {
       position: fixed;
-      padding: 10px 16px;
+      padding: 8px 14px;
       background: var(--text-heading);
       color: var(--bg-card);
-      border-radius: 10px;
-      font-size: 14px;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: 600;
       z-index: 250;
       pointer-events: none;
@@ -1128,7 +1215,7 @@
     <section id="map-section">
       <div id="map-container">
         
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+       <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--********* Copyright (c) 2024 Pareto Softare, LLC DBA Simplemaps.com ***************************************
 ************* Free for Commercial Use, full terms at  https://simplemaps.com/resources/svg-license ************
 ************* Attribution is appreciated! https://simplemaps.com *******************************************-->
@@ -1635,6 +1722,13 @@
       <button id="search-fab" class="fab" onclick="App.openSearch()">🔍</button>
       <button id="theme-fab" class="fab" onclick="App.toggleDark()">🌙</button>
 
+      <!-- Zoom Controls -->
+      <div class="zoom-controls" id="zoom-controls">
+        <button class="zoom-btn" onclick="App.zoomIn()" title="Zoom In">+</button>
+        <button class="zoom-btn" onclick="App.zoomOut()" title="Zoom Out">−</button>
+        <button class="zoom-btn reset" onclick="App.resetZoom()" title="Reset">↺</button>
+      </div>
+
       <!-- Quiz floating card -->
       <div id="quiz-float">
         <div class="quiz-timer-bar">
@@ -1644,14 +1738,14 @@
           <div class="quiz-card-header">
             <div class="quiz-progress">Q<span id="q-num">1</span>/<span id="q-total">10</span></div>
             <div class="quiz-score">
-              <span>Score:</span>
-              <span id="q-score" class="quiz-score-value">0</span>
+              Score: <span id="q-score" class="quiz-score-value">0</span>
             </div>
           </div>
           <p id="q-text" class="quiz-question"></p>
           <div class="progress-dots" id="progress-dots"></div>
-          <div class="quiz-actions">
+          <div class="quiz-footer">
             <button id="hint-btn" class="quiz-hint-btn" onclick="App.useHint()">💡 Hint</button>
+            <button class="quiz-exit-btn" onclick="App.exitQuiz()">✕ Exit</button>
           </div>
         </div>
       </div>
@@ -1871,11 +1965,14 @@
       const CFG = {
         DARK_KEY: 'india-geo-dark',
         STATS_KEY: 'india-geo-stats',
-        FEEDBACK_MS: 1500,
+        FEEDBACK_MS: 1200,
         LONG_PRESS_MS: 500,
         MARKER_HIT_EXTRA: 25,
         SWIPE_THRESHOLD: 50,
         VELOCITY_THRESHOLD: 0.3,
+        ZOOM_STEP: 0.4,
+        ZOOM_MIN: 0.5,
+        ZOOM_MAX: 4,
         DIFFICULTIES: {
           easy: { timer: 15, hints: 3, types: ['name'] },
           medium: { timer: 10, hints: 1, types: ['name', 'capital', 'sea', 'country', 'neighbor'] },
@@ -1984,14 +2081,7 @@
         hintsLeft: 1,
         quiz: { active: false, questions: [], idx: 0, score: 0, timer: null, timeLeft: 10, answered: false, history: [], streak: 0, bestStreak: 0 },
         stats: { quizzes: 0, totalCorrect: 0, bestScore: 0, bestStreak: 0, stateMastery: {}, history: [] },
-        sheet: { 
-          state: 'collapsed', 
-          isDragging: false, 
-          startY: 0, 
-          startTranslate: 0, 
-          currentTranslate: 0,
-          startTime: 0
-        }
+        sheet: { state: 'collapsed', isDragging: false, startY: 0, startTranslate: 0, currentTranslate: 0, startTime: 0 }
       };
 
       // ═══════ DOM ═══════
@@ -2133,7 +2223,7 @@
               e.touches[0].pageY - e.touches[1].pageY
             );
             const scale = currentDistance / initialDistance;
-            ST.zoom = Math.max(0.5, Math.min(4, initialZoom * scale));
+            ST.zoom = Math.max(CFG.ZOOM_MIN, Math.min(CFG.ZOOM_MAX, initialZoom * scale));
             applyZoom();
           }
         }, { passive: true });
@@ -2184,7 +2274,25 @@
         }
       }
 
-      // ═══════ ZOOM ═══════
+      // ═══════ ZOOM CONTROLS ═══════
+      function zoomIn() {
+        ST.zoom = Math.min(CFG.ZOOM_MAX, ST.zoom + CFG.ZOOM_STEP);
+        applyZoom();
+        vibrate();
+      }
+
+      function zoomOut() {
+        ST.zoom = Math.max(CFG.ZOOM_MIN, ST.zoom - CFG.ZOOM_STEP);
+        applyZoom();
+        vibrate();
+      }
+
+      function resetZoom() {
+        ST.zoom = 1;
+        applyZoom();
+        vibrate();
+      }
+
       function applyZoom() {
         const svg = $('#map-container svg');
         if (svg) svg.style.transform = `scale(${ST.zoom})`;
@@ -2289,40 +2397,21 @@
         });
       }
 
-      // ═══════ BOTTOM SHEET - FIXED SWIPE ═══════
+      // ═══════ BOTTOM SHEET ═══════
       function bindSheet() {
         const sheet = $('#bottom-sheet');
         const dragArea = $('#sheet-drag-area');
-        const overlay = $('#bottom-sheet-overlay');
         
         let startY = 0;
         let startTranslateY = 0;
-        let currentY = 0;
         let isDragging = false;
         let startTime = 0;
 
-        function getSheetTranslate() {
-          const transform = window.getComputedStyle(sheet).transform;
-          if (transform === 'none') return 0;
-          const matrix = new DOMMatrix(transform);
-          return matrix.m42;
-        }
-
-        function getMaxTranslate() {
-          return sheet.offsetHeight - 90; // collapsed height
-        }
-
-        function getHalfTranslate() {
-          return sheet.offsetHeight - (window.innerHeight * 0.5);
-        }
-
-        // Touch Start
         dragArea.addEventListener('touchstart', e => {
           isDragging = true;
           startY = e.touches[0].clientY;
           startTime = Date.now();
           
-          // Get current translate value
           sheet.classList.add('no-transition');
           const computedStyle = window.getComputedStyle(sheet);
           const transform = computedStyle.transform;
@@ -2331,7 +2420,6 @@
             const matrix = new DOMMatrix(transform);
             startTranslateY = matrix.m42;
           } else {
-            // Calculate based on current state
             const sheetHeight = sheet.offsetHeight;
             if (ST.sheet.state === 'collapsed') {
               startTranslateY = sheetHeight - 90;
@@ -2343,22 +2431,19 @@
           }
         }, { passive: true });
 
-        // Touch Move
         dragArea.addEventListener('touchmove', e => {
           if (!isDragging) return;
           
-          currentY = e.touches[0].clientY;
+          const currentY = e.touches[0].clientY;
           const deltaY = currentY - startY;
           let newTranslate = startTranslateY + deltaY;
           
-          // Clamp values
-          const maxTranslate = getMaxTranslate();
+          const maxTranslate = sheet.offsetHeight - 90;
           newTranslate = Math.max(0, Math.min(maxTranslate, newTranslate));
           
           sheet.style.transform = `translateY(${newTranslate}px)`;
         }, { passive: true });
 
-        // Touch End
         dragArea.addEventListener('touchend', e => {
           if (!isDragging) return;
           isDragging = false;
@@ -2371,55 +2456,35 @@
           const velocity = Math.abs(deltaY) / timeDiff;
           
           const sheetHeight = sheet.offsetHeight;
-          const maxTranslate = getMaxTranslate();
-          const halfTranslate = getHalfTranslate();
+          const maxTranslate = sheetHeight - 90;
           
-          // Calculate current position
           let currentTranslate = startTranslateY + deltaY;
           currentTranslate = Math.max(0, Math.min(maxTranslate, currentTranslate));
           
-          // Determine target state based on velocity and position
           let targetState;
           
           if (velocity > CFG.VELOCITY_THRESHOLD) {
-            // Fast swipe - use direction
             if (deltaY < 0) {
-              // Swiping up
-              if (ST.sheet.state === 'collapsed') {
-                targetState = 'half';
-              } else if (ST.sheet.state === 'half') {
-                targetState = 'expanded';
-              } else {
-                targetState = 'expanded';
-              }
+              if (ST.sheet.state === 'collapsed') targetState = 'half';
+              else if (ST.sheet.state === 'half') targetState = 'expanded';
+              else targetState = 'expanded';
             } else {
-              // Swiping down
-              if (ST.sheet.state === 'expanded') {
-                targetState = 'half';
-              } else if (ST.sheet.state === 'half') {
-                targetState = 'collapsed';
-              } else {
-                targetState = 'collapsed';
-              }
+              if (ST.sheet.state === 'expanded') targetState = 'half';
+              else if (ST.sheet.state === 'half') targetState = 'collapsed';
+              else targetState = 'collapsed';
             }
           } else {
-            // Slow drag - use position thresholds
             const expandedThreshold = sheetHeight * 0.25;
             const halfThreshold = sheetHeight * 0.6;
             
-            if (currentTranslate < expandedThreshold) {
-              targetState = 'expanded';
-            } else if (currentTranslate < halfThreshold) {
-              targetState = 'half';
-            } else {
-              targetState = 'collapsed';
-            }
+            if (currentTranslate < expandedThreshold) targetState = 'expanded';
+            else if (currentTranslate < halfThreshold) targetState = 'half';
+            else targetState = 'collapsed';
           }
           
           setSheetState(targetState);
         }, { passive: true });
 
-        // Touch Cancel
         dragArea.addEventListener('touchcancel', () => {
           isDragging = false;
           sheet.classList.remove('no-transition');
@@ -2432,37 +2497,49 @@
         const overlay = $('#bottom-sheet-overlay');
         const hint = $('#sheet-hint');
         
-        // Remove all state classes
-        sheet.classList.remove('collapsed', 'half', 'expanded', 'no-transition');
-        
-        // Reset inline transform
+        sheet.classList.remove('collapsed', 'half', 'expanded', 'hidden-sheet', 'no-transition');
         sheet.style.transform = '';
-        
-        // Add new state class
         sheet.classList.add(state);
         ST.sheet.state = state;
         
-        // Update overlay
         if (state === 'expanded') {
           overlay.classList.add('visible');
         } else {
           overlay.classList.remove('visible');
         }
         
-        // Update hint text
         if (hint) {
-          if (state === 'collapsed') {
-            hint.textContent = 'Swipe up to explore';
-          } else if (state === 'half') {
-            hint.textContent = 'Swipe up for more';
-          } else {
-            hint.textContent = 'Swipe down to minimize';
-          }
+          if (state === 'collapsed') hint.textContent = 'Swipe up to explore';
+          else if (state === 'half') hint.textContent = 'Swipe up for more';
+          else hint.textContent = 'Swipe down to minimize';
         }
+      }
+
+      function hideSheet() {
+        const sheet = $('#bottom-sheet');
+        sheet.classList.remove('collapsed', 'half', 'expanded');
+        sheet.classList.add('hidden-sheet');
+        $('#bottom-sheet-overlay').classList.remove('visible');
       }
 
       function collapseSheet() {
         setSheetState('collapsed');
+      }
+
+      // ═══════ QUIZ MODE UI ═══════
+      function enterQuizMode() {
+        $('#app').classList.add('quiz-active');
+        $('#bottom-nav').classList.add('hidden-nav');
+        hideSheet();
+        $('#search-fab').classList.add('hidden');
+        $('#theme-fab').classList.add('hidden');
+      }
+
+      function exitQuizMode() {
+        $('#app').classList.remove('quiz-active');
+        $('#bottom-nav').classList.remove('hidden-nav');
+        $('#search-fab').classList.remove('hidden');
+        $('#theme-fab').classList.remove('hidden');
       }
 
       // ═══════ SEARCH ═══════
@@ -2514,6 +2591,7 @@
 
         ST.mode = mode;
         resetHL();
+        exitQuizMode();
 
         $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.mode === mode));
 
@@ -2577,7 +2655,9 @@
         q.active = true;
         resetHL();
 
-        setSheetState('collapsed');
+        // Enter quiz mode - hide everything except map and question
+        enterQuizMode();
+        
         $('#quiz-setup').style.display = 'none';
         $('#quiz-results').style.display = 'none';
         $('#quiz-float').classList.add('active');
@@ -2588,7 +2668,18 @@
         nextQuestion(diff);
       }
 
+      function exitQuiz() {
+        if (confirm('Exit quiz? Progress will be lost.')) {
+          endQuiz();
+          exitQuizMode();
+          setSheetState('expanded');
+          $('#quiz-setup').style.display = '';
+          $('#quiz-results').style.display = 'none';
+        }
+      }
+
       function restartQuiz() {
+        exitQuizMode();
         $('#quiz-results').style.display = 'none';
         $('#quiz-setup').style.display = '';
         setSheetState('expanded');
@@ -2743,7 +2834,7 @@
           q.streak++;
           if (q.streak > q.bestStreak) q.bestStreak = q.streak;
           hl(id, 'correct');
-          toast(`✅ Correct! ${s.name}`, 'success');
+          toast(`✅ ${s.name}`, 'success');
           setDot(q.idx, 'correct');
           ST.stats.stateMastery[id] = (ST.stats.stateMastery[id] || 0) + 1;
           vibrate();
@@ -2751,7 +2842,7 @@
           q.streak = 0;
           hl(id, 'wrong');
           cur.ans.forEach(c => hl(c, 'correct'));
-          toast(`❌ Wrong! It was ${cur.disp}`, 'error');
+          toast(`❌ ${cur.disp}`, 'error');
           setDot(q.idx, 'wrong');
         }
 
@@ -2768,7 +2859,7 @@
         const cur = q.questions[q.idx];
         q.history.push({ q: cur, click: null, ok: false, time: CFG.DIFFICULTIES[ST.difficulty].timer });
         cur.ans.forEach(c => hl(c, 'correct'));
-        toast(`⏰ Time's up! ${cur.disp}`, 'error');
+        toast(`⏰ ${cur.disp}`, 'error');
         setDot(q.idx, 'wrong');
         scheduleNext();
       }
@@ -2819,6 +2910,8 @@
         if (q.bestStreak > s.bestStreak) s.bestStreak = q.bestStreak;
         saveStats();
 
+        // Exit quiz mode and show results
+        exitQuizMode();
         $('#quiz-float').classList.remove('active');
         $('#quiz-results').style.display = '';
         setSheetState('expanded');
@@ -2921,7 +3014,7 @@
         t.className = `toast toast-${type}`;
         t.textContent = msg;
         container.appendChild(t);
-        setTimeout(() => t.remove(), 2500);
+        setTimeout(() => t.remove(), 2000);
       }
 
       // ═══════ STATS ═══════
@@ -3007,13 +3100,17 @@
         switchMode,
         startQuiz,
         restartQuiz,
+        exitQuiz,
         useHint,
         toggleDark,
         openSearch,
         closeSearch,
         selectFromSearch,
         clearStats,
-        collapseSheet
+        collapseSheet,
+        zoomIn,
+        zoomOut,
+        resetZoom
       };
     })();
   </script>
